@@ -27,7 +27,7 @@ public:
 		genCharacterstics();
 	}
 
-	static char* giveName() {											//Random input
+	static char* giveName() {											//Monster Name Generator
 		std::string temp = "Monster ";
 		char c = 'A' + rand() % 26;
 		temp.append(1,c);
@@ -52,8 +52,8 @@ public:
 	int getY() {
 		return posY;
 	}
-	void Move() {
-		if (moveAI == 0) {
+	void Move() {														//AI for monster: Moves horizontally or vertcally based on a random coin toss
+		if (moveAI == 0) {											
 			if (posY >= GRIDY) {	
 				moveAI = 1;
 			}
@@ -131,7 +131,7 @@ int main()
 		index++;
 	}
 
-	while (!isDead) {
+	while (!isDead) {																						//Main game Loop
 		isDead = CheckState(playerPosX, playerPosY, numberOfMonsters, monsters);
 		PrintPositions(&playerPosX,&playerPosY,numberOfMonsters,monsters);
 		PrintGUI();
@@ -144,7 +144,7 @@ int main()
 		MonsterGen(&numberOfMonsters, monsters);
 	}
 	
-	index = 0;
+	index = 0;																								//freeing memory here
 	delete[] player;
 	while (index < numberOfMonsters) {
 		delete[] monsters[index];
@@ -152,9 +152,21 @@ int main()
 	}
 	delete[] monsters;
 	
-	int x = 0;
-	x = 5;
 }
+
+bool CheckState(int X, int Y, int n, Monster** monsters) {													// Kill player if collided with monster
+	int index = 0;																			
+	bool isDead = false;
+	while (index < n) {
+		if (X == monsters[index]->getX() && Y == monsters[index]->getY()) {
+			isDead = true;
+			std::cout << "\nYou are Dead!\n";
+		}
+		index++;
+	}
+	return isDead;
+}
+
 
 void PrintPositions(int *X, int *Y, int n, Monster** monster)
 {
@@ -217,18 +229,6 @@ void MoveMonsters(int n, Monster** monsters) {
 	}
 }
 
-bool CheckState(int X, int Y, int n, Monster** monsters) {
-	int index = 0;
-	bool isDead = false;
-	while (index < n) {
-		if (X == monsters[index]->getX() && Y == monsters[index]->getY()) {
-			isDead = true;
-			std::cout << "\nYou are Dead!\n";
-		}
-		index++;
-	}
-	return isDead;
-}
 
 
 void MonsterGen(int* numberOfMonsters, Monster** monsters) {
@@ -236,7 +236,7 @@ void MonsterGen(int* numberOfMonsters, Monster** monsters) {
 	int j = 1;
 	int n = *numberOfMonsters;
 	
-	while (i < n) {
+	while (i < n) {																					//Check if Monster has expired
 		if (monsters[i]->getLifeTime() == 0) {
 			delete monsters[i];
 			monsters[i] = new Monster(Monster::giveName());
@@ -244,7 +244,7 @@ void MonsterGen(int* numberOfMonsters, Monster** monsters) {
 		i++;
 	}
 	
-	i = 0;
+	i = 0;																							// Or check if any of the two monsters have collided and create a new monster
 	while (i < n-1) {
 		while (j < n) {
 			if (monsters[i]->getX() == monsters[j]->getX() && monsters[i]->getY() == monsters[j]->getY()) {
@@ -259,67 +259,3 @@ void MonsterGen(int* numberOfMonsters, Monster** monsters) {
 	}
 
 }
-
-//#include<iostream>
-//
-//
-//
-//class Monster {
-//private:
-//	char* name;
-//	int lifeTime;
-//	int posX;
-//	int posY;
-//	int moveAI;
-//
-//public:
-//	Monster(char* name) {
-//		this->name = name;
-//		GenCharacterstics();
-//	}
-//	void GenCharacterstics() {
-//		this->lifeTime = rand() % 15 + 1;
-//		this->posX = rand() % GRIDX;
-//		this->posY = rand() % GRIDY;
-//		this->moveAI = rand() % 4;
-//		}
-//	char* getName() {
-//		return name;
-//	}
-//};
-//
-//int main() {
-//	int n;
-//	int index = 0;
-//	std::cout << "Enter number of monsters";
-//	std::cin >> n;
-//	Monster** monsters = new Monster*[MAXNUMBER];
-//	while (index < n)
-//	{
-//		char* temp = new char[MAXSIZE];
-//		std::cin >> temp;
-//		monsters[index] = new Monster(temp);
-//		index++;
-//	}
-//	index = 0;
-//	while (index < n)
-//	{
-//		std::cout << monsters[index] << " " << monsters[index]->getName()<<"/n";
-//		index++;
-//	}
-//	
-//	delete[] monsters;
-//	
-//	int x = 0;
-//	x = 5;
-//}
-//#include<iostream>
-//#include<string.h>
-//
-//int main() {
-//	std::string temp = "Monster ";
-//	char c = 'A' + rand() % 26;
-//	temp.append(1,c);
-//	char* name = &temp[0];
-//	std::cout << name;
-//}
