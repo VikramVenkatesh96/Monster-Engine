@@ -14,4 +14,6 @@ Point2D::Point2D(int x ,int y)
 	this->y = y;
 }
 
-
+void Point2D::PrintPoint() {
+	std::cout << "(" << x << "," << y << ")";
+}

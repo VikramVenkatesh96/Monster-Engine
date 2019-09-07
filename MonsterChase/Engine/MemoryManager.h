@@ -7,7 +7,7 @@ public:
 	
 	static void* AllocateMem(size_t);
 	
-	static void* ModifyMem(void*,size_t);
+	static void* IncreaseMem(void*,size_t);
 	
 	template <class T> static void* DecreaseMem(T* ptr, int n, int index) {
 

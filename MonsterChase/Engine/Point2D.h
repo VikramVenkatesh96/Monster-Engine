@@ -7,6 +7,7 @@ public:
 	int y;
 	Point2D();
 	Point2D(int,int);
+	void PrintPoint();
 
 	Point2D operator + (Point2D const &obj) {
 		Point2D res;
@@ -20,6 +21,20 @@ public:
 		res.x = x * c;
 		res.y = y * c;
 		return res;
+	}
+
+	bool operator == (Point2D const &obj) {
+		if ((x == obj.x) && (y == obj.y)) 
+			return true;
+		else
+			return false;
+	}
+
+	bool operator < (Point2D const &obj) {
+		if ((x < obj.x) && (y < obj.x))
+			return true;
+		else
+			return false;
 	}
 
 };

@@ -2,8 +2,6 @@
 #include "Point2D.h"
 class Monster{
 
-	
-
 public:
 	char* name;
 	int lifeTime;
