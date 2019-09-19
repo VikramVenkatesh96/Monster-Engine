@@ -7,8 +7,8 @@ public:
 	int lifeTime;
 	Point2D* position;
 
-	Monster();
-	
+	Monster(int,int);
+	~Monster();
 	void Move(Point2D*);
 };
 

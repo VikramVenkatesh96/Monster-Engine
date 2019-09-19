@@ -14,6 +14,7 @@ public:
 		for (int i = index + 1; i < n; ++i) {
 			ptr[i - 1] = ptr[i];
 		}
+		delete ptr[n-1];
 		return realloc(ptr, sizeof(T)*(n - 1));
 	}
 	static void FreeMem(void* ptr);

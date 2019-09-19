@@ -16,6 +16,6 @@ void* MemoryManager::IncreaseMem(void* ptr,size_t newSize) {
 }
 
 void MemoryManager::FreeMem(void* ptr) {
-	
+
 	free(ptr);
 }
