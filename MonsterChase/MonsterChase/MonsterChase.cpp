@@ -1,7 +1,8 @@
 //Engine Headers
 #include "MemoryManager.h"
 #include "Point2D.h"
-#include "GameObject.h"						//Not implemented yet 
+#include "GameObject.h"	//Not implemented yet
+#include "IO.h"
 //End Engine Headers
 
 //Game Headers
@@ -31,7 +32,6 @@ Point2D* DOWN = new Point2D(0, -PLAYERSPEED);
 
 //Function declarations
 void PrintGameIntro();
-void TakeStringInput(char*);
 bool CheckState(Point2D*,int,Monster**);
 void PrintPositions(char*,Point2D*,int, Monster**);
 void PrintGUI();
@@ -50,7 +50,7 @@ int main() {
 	//Player Initialization
 	std::cout << "\nEnter Player name:";
 	char* playerName = (char*)MemoryManager::AllocateMem(sizeof(char));
-	TakeStringInput(playerName);
+	IO::TakeStringInput(playerName);
 	Point2D* playerPos = new Point2D();
 
 	//Monster Initialization
@@ -60,22 +60,18 @@ int main() {
 	Monster** monsters = (Monster**)MemoryManager::AllocateMem(sizeof(Monster*)*nMonsters);
 	
 	for (int i = 0; i < nMonsters; ++i) {
-		monsters[i] = (Monster*) MemoryManager::AllocateMem(sizeof(Monster));
-		monsters[i]->name = (char*)MemoryManager::AllocateMem(sizeof(char));
-	}
-	for (int i = 0; i < nMonsters; i++) {
-		std::cout << "Enter name for Monster" << i + 1<< ":";
-		TakeStringInput(monsters[i]->name);
-		monsters[i]->lifeTime = rand() % 15;
-		monsters[i]->position = new Point2D(rand() % GRIDX, rand() % GRIDY);
+		monsters[i] = new Monster(GRIDX, GRIDY);
+		std::cout << "Enter name for Monster" << i + 1 << ":";
+		IO::TakeStringInput(monsters[i]->name);
 	}
 
 	//GameLoop variables init
 	bool isDead = false;
+	bool isWin = false;
 	char input;
 
 	//Main Game Loop
-	while (!isDead) {
+	while (!isDead && !isWin) {
 		//system("CLS");
 		isDead = CheckState(playerPos, nMonsters, monsters);
 		PrintPositions(playerName,playerPos,nMonsters,monsters);
@@ -87,20 +83,23 @@ int main() {
 		MovePlayer(input,playerPos);
 		MoveMonsters(nMonsters,monsters);
 		ManageMonsterGen(&nMonsters, monsters);
+		if (nMonsters == 0)
+			isWin = true;
+	}
+	
+	if (isWin) {
+		std::cout << "\nYou Win!!";
+		nMonsters = 1;
 	}
 	
 	//Clear Game Memory
-	
 	//Local cleanup
 	MemoryManager::FreeMem(playerName);
 	delete playerPos;
 
 	for (int i = 0; i < nMonsters; i++) {
-		MemoryManager::FreeMem(monsters[i]->name);
-		delete monsters[i]->position;
-		MemoryManager::FreeMem(monsters[i]);
+		delete monsters[i];
 	}
-	MemoryManager::FreeMem(monsters);
 
 	//Global cleanup
 	delete LEFT;
@@ -117,19 +116,9 @@ void PrintGameIntro()
 	std::cout << "\t\t\t\t MONSTER CHASE\n\n";
 }
 
-void TakeStringInput(char* string) {
-	char c ;
-	int index = 0;
-	while ((c = (char)_getche()) !='\r') {
-		index++;
-		string = (char*)MemoryManager::IncreaseMem(string, sizeof(char)*(index + 1));
-		string[index - 1] = c;
-		string[index] = '\0';
-	}
-}
 
 bool CheckState(Point2D* playerPos, int size, Monster** monsters)
-{
+{	
 	int index = 0;
 	bool isDead = false;
 	while (index < size) {
@@ -144,7 +133,7 @@ bool CheckState(Point2D* playerPos, int size, Monster** monsters)
 
 void PrintPositions(char* playerName, Point2D* playerPos, int size, Monster** monsters)
 {
-	std::cout << "\n" << playerName << "at ";
+	std::cout << "\n" << playerName << " at ";
 	playerPos->PrintPoint();
 	int index = 0;
 	while (index < size) {
@@ -200,32 +189,35 @@ void MovePlayer(char input, Point2D* playerPos)
 void MoveMonsters(int size, Monster** monsters)
 {
 	int index = 0;
-	Point2D* toGo = new Point2D();
+	
 	while (index < size) {
 		if (rand() % 2 == 0)
-			toGo->x = 2 - (rand() % 4);
+			monsters[index]->Move(new Point2D(2 - (rand() % 4),0));
 		else
-			toGo->y = 2 - (rand() % 4);
-		monsters[index]->Move(toGo);
+			monsters[index]->Move(new Point2D(0,2 - (rand() % 4)));
+		
 		EnforceBoundaries(monsters[index]->position);
 		index++;
 	}
 	
-	//cleanup
-	delete toGo;
 }
 
 void ManageMonsterGen(int* size, Monster** monsters)
 {
 	int n = *size;
 	bool isColliding = false;
-
+	//Check if a Monster has expired
 	for (int i = 0; i < n; i++) {
 		if (monsters[i]->lifeTime == 0) {
-			monsters = (Monster**)MemoryManager::DecreaseMem<Monster*>(monsters, n, i);
-			*size--;
+			if (n != 1) {
+				monsters = (Monster**)MemoryManager::DecreaseMem<Monster*>(monsters, n, i);
+			}
+			*size = *size - 1;
 		}
 	}
+	//No collisions or generating required if we have less than 2 monsters
+	if (*size < 2)
+		return;
 
 	n = *size;
 
@@ -234,7 +226,7 @@ void ManageMonsterGen(int* size, Monster** monsters)
 			if (monsters[i]->position == monsters[j]->position) {
 				isColliding = true;
 				monsters = (Monster**)MemoryManager::IncreaseMem(monsters, sizeof(Monster*)*(n + 1));
-				*size++;
+				*size = *size + 1;
 				break;
 			}
 			if (isColliding)
@@ -243,13 +235,10 @@ void ManageMonsterGen(int* size, Monster** monsters)
 
 		if (isColliding) {
 			//MonsterMen Init
-			monsters[*size - 1] = (Monster*)MemoryManager::AllocateMem(sizeof(Monster));
-			monsters[*size - 1]->name = (char*)MemoryManager::AllocateMem(sizeof(char)*2);
+			monsters[*size - 1] = new Monster(GRIDX,GRIDY);
 
 			//Monster Characterstics Gen
 			GenMonsterName(monsters[i]->name);
-			monsters[*size - 1]->lifeTime = rand() % 15;
-			monsters[*size - 1]->position = new Point2D(rand() % GRIDX, rand() % GRIDY);
 		}
 	}
 }
