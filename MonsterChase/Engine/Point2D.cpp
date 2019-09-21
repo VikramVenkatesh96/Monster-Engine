@@ -8,7 +8,7 @@ Point2D::Point2D() {
 }
 
 //Overloaded constructor for direct input
-Point2D::Point2D(int x ,int y)
+Point2D::Point2D(float x ,float y)
 {
 	this->x = x;
 	this->y = y;

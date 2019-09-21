@@ -14,9 +14,20 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <ctype.h>
+#include <crtdbg.h>
 //End STL
 
+//MemDebugTool
+#ifdef _DEBUG
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
+// allocations to be of _CLIENT_BLOCK type
+#else
+#define DBG_NEW new
+#endif
+
 //Macros
+#define _CRTDBG_MAP_ALLOC
 #define MAXSIZE 64
 #define GRIDX 256
 #define GRIDY 256
@@ -24,16 +35,16 @@
 //End Macros
 
 //Globals
-Point2D* LEFT = new Point2D(-PLAYERSPEED, 0);
-Point2D* RIGHT = new Point2D(PLAYERSPEED, 0);
-Point2D* UP = new Point2D(0, PLAYERSPEED);
-Point2D* DOWN = new Point2D(0, -PLAYERSPEED);
+Point2D* LEFT = DBG_NEW Point2D(-PLAYERSPEED, 0);
+Point2D* RIGHT = DBG_NEW Point2D(PLAYERSPEED, 0);
+Point2D* UP = DBG_NEW Point2D(0, PLAYERSPEED);
+Point2D* DOWN = DBG_NEW Point2D(0, -PLAYERSPEED);
 //End Globals
 
 //Function declarations
 void PrintGameIntro();
 bool CheckState(Point2D*,int,Monster**);
-void PrintPositions(char*,Point2D*,int, Monster**);
+void PrintPositions(char*,/*Point2D*,*/int, Monster**);
 void PrintGUI();
 void EnforceBoundaries(Point2D*);
 void MovePlayer(char,Point2D*);
@@ -41,9 +52,13 @@ bool CheckBoundaries(Point2D*);
 void MoveMonsters(int,Monster**);
 void ManageMonsterGen(int*, Monster**);
 void GenMonsterName(char*);
+void Point2D_UnitTest();
 //End Function Declarations
 
 int main() {
+	//Point2D UnitTest
+	Point2D_UnitTest();
+
 	//Intro Screen
 	PrintGameIntro();
 
@@ -51,7 +66,7 @@ int main() {
 	std::cout << "\nEnter Player name:";
 	char* playerName = (char*)MemoryManager::AllocateMem(sizeof(char));
 	IO::TakeStringInput(playerName);
-	Point2D* playerPos = new Point2D();
+	Point2D* playerPos = DBG_NEW Point2D();
 
 	//Monster Initialization
 	int nMonsters;
@@ -70,11 +85,13 @@ int main() {
 	bool isWin = false;
 	char input;
 
+	monsters[1]->lifeTime = 1;
+
 	//Main Game Loop
 	while (!isDead && !isWin) {
 		//system("CLS");
 		isDead = CheckState(playerPos, nMonsters, monsters);
-		PrintPositions(playerName,playerPos,nMonsters,monsters);
+		PrintPositions(playerName,/*playerPos,*/nMonsters,monsters);
 		PrintGUI();
 		input = (char)_getch();
 		input = (char)tolower(input);
@@ -107,8 +124,7 @@ int main() {
 	delete UP;
 	delete DOWN;
 
-	int x;
-	x = 5;
+	_CrtDumpMemoryLeaks();
 }
 
 void PrintGameIntro()
@@ -131,15 +147,15 @@ bool CheckState(Point2D* playerPos, int size, Monster** monsters)
 	return isDead;
 }
 
-void PrintPositions(char* playerName, Point2D* playerPos, int size, Monster** monsters)
-{
+void PrintPositions(char* playerName,/* Point2D* playerPos,*/ int size, Monster** monsters)
+{	
 	std::cout << "\n" << playerName << " at ";
-	playerPos->PrintPoint();
+	//playerPos->PrintPoint();
 	int index = 0;
 	while (index < size) {
 		std::cout << "\n";
 		std::cout << "Monster " << monsters[index]->name << " alive untill " << monsters[index]->lifeTime << " at ";
-		monsters[index]->position->PrintPoint();
+		//monsters[index]->position->PrintPoint();
 		index++;
 	}
 }
@@ -189,17 +205,21 @@ void MovePlayer(char input, Point2D* playerPos)
 void MoveMonsters(int size, Monster** monsters)
 {
 	int index = 0;
-	
+	Point2D* toGo = DBG_NEW Point2D();
 	while (index < size) {
+		//init toGo
+		toGo->x = 0;
+		toGo->y = 0;
 		if (rand() % 2 == 0)
-			monsters[index]->Move(new Point2D(2 - (rand() % 4),0));
+			toGo->x = static_cast <float> ( 2 - (rand() % 4));
 		else
-			monsters[index]->Move(new Point2D(0,2 - (rand() % 4)));
+			toGo->y = static_cast <float> (2 - (rand() % 4));
 		
+		monsters[index]->Move(toGo);
 		EnforceBoundaries(monsters[index]->position);
 		index++;
 	}
-	
+	delete toGo;
 }
 
 void ManageMonsterGen(int* size, Monster** monsters)
@@ -235,7 +255,7 @@ void ManageMonsterGen(int* size, Monster** monsters)
 
 		if (isColliding) {
 			//MonsterMen Init
-			monsters[*size - 1] = new Monster(GRIDX,GRIDY);
+			monsters[*size - 1] = DBG_NEW Monster(GRIDX,GRIDY);
 
 			//Monster Characterstics Gen
 			GenMonsterName(monsters[i]->name);
@@ -246,4 +266,33 @@ void ManageMonsterGen(int* size, Monster** monsters)
 void GenMonsterName(char* name) {
 	name[0] = (char)('A' + rand() % 26);
 	name[1] = '\0';
+}
+
+//Unit Test Code
+void Point2D_UnitTest()
+{
+	std::cout << "Running Unit Test....\n";
+	Point2D P1(1.0f, 0.0f);
+	Point2D P2(0.0f, 0.0f);
+
+	Point2D P3 = P1 + P2;
+	P3 = P1 - P2;
+	
+	Point2D P4 = P1 * 0.5f;
+	
+	Point2D P5 = P1 / 2.0f;
+	
+	Point2D P6 = -P4;
+
+	P6 *= 2.0f;
+	P5 /= 4.0f;
+	
+	P2 += P1;
+	P3 -= P1;
+
+
+	Point2D P7 = (((P1 + P2) * 2.0f) - -P3) / 2.0f;
+
+	bool bArentEqual = P6 != P4;
+	std::cout << "\n bArentEqual: " << bArentEqual << std::endl;
 }

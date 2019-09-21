@@ -9,7 +9,8 @@ public:
 	
 	static void* IncreaseMem(void*,size_t);
 	
-	template <class T> static void* DecreaseMem(T* ptr, int n, int index) {
+	template <class T>
+	static void* DecreaseMem(T* ptr, int n, int index) {
 
 		for (int i = index + 1; i < n; ++i) {
 			ptr[i - 1] = ptr[i];

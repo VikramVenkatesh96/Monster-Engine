@@ -5,7 +5,7 @@
 Monster::Monster(int GRIDX, int GRIDY)
 {	name =(char*)MemoryManager::AllocateMem(sizeof(char));
 	lifeTime = rand() % 15;
-	position = new Point2D(rand() % GRIDX, rand() % GRIDY);
+	position = new Point2D(static_cast <float>(rand() % GRIDX), static_cast <float>(rand() % GRIDY));
 }
 
 void Monster::Move(Point2D* toGo) {
