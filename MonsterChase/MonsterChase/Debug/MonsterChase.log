@@ -1,2 +1,3 @@
 ﻿  MonsterChase.cpp
-  MonsterChase.vcxproj -> C:\Users\u1271129\Documents\Source\u1271129\MonsterChase\Debug\MonsterChase.exe
+c:\users\u1271129\documents\source\u1271129\monsterchase\monsterchase\monsterchase.cpp(35): error C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\ucrt\stdio.h(1274): note: see declaration of 'scanf'
