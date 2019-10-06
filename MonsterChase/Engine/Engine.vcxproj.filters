@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="IO.cpp" />
+    <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="Point2D.cpp" />
+    <ClCompile Include="DataStructures.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="IO.h" />
+    <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="Point2D.h" />
+    <ClInclude Include="DataStructures.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Tools">
+      <UniqueIdentifier>{155c6adb-3d38-4358-8c6d-de8c29c2a5a5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

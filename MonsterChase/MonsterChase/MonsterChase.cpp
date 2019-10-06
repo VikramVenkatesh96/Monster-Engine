@@ -3,6 +3,7 @@
 #include "Point2D.h"
 #include "GameObject.h"	//Not implemented yet
 #include "IO.h"
+#include "DataStructures.h"
 //End Engine Headers
 
 //Game Headers
