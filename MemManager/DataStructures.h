@@ -20,7 +20,10 @@ public:
 	LinkedListNode * remove();
 	LinkedListNode * remove(unsigned int);
 	unsigned int GetLength();
+	LinkedListNode * GetStart();
 	LinkedListNode * GetAt(unsigned int);
+	void PrintNodes();
+	bool FindElement(void *);
 };
 
 struct BinarySearchTreeNode {

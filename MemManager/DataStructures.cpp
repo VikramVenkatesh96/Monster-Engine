@@ -92,12 +92,45 @@ unsigned int LinkedList::GetLength() {
 	return length;
 }
 
+LinkedListNode * LinkedList::GetStart()
+{
+	return start;
+}
+
 LinkedListNode * LinkedList::GetAt(unsigned int index) {
 	LinkedListNode * returnNode = start;
 	for (unsigned int i = 0; i < index; ++i) {
 		returnNode = returnNode->next;
 	}
 	return returnNode;
+}
+void LinkedList::PrintNodes()
+{
+	LinkedListNode * temp = start;
+	if (length == 0) {
+		std::cout << "No elements in this list!";
+	}
+	else {
+		for (unsigned int i = 0; i < length; i++)
+		{
+			std::cout << "Address: " << temp->allocatedMemPtr << "\t\t\t";
+			std::cout << temp->size << " bytes" << std::endl;
+			temp = temp->next;
+		}
+	}
+}
+bool LinkedList::FindElement(void * ptr)
+{
+	LinkedListNode * temp = start;
+	bool foundInList = false;
+	for (unsigned int i = 0; i < length; ++i) {
+		if (temp->allocatedMemPtr == ptr) {
+			foundInList = true;
+			break;
+		}
+		temp = temp->next;
+	}
+	return foundInList;
 }
 //LinkedList Functions End
 

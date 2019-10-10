@@ -1,5 +1,9 @@
 #include "HeapManager.h"
-#include <stdlib.h>
+#include <iostream>
+
+#define DEADZONESIZE 4
+#define DEFAULTALIGNMENT 4
+
 HeapManager::HeapManager(void * i_pHeapMemory, size_t i_HeapMemorySize, unsigned int i_numDescriptors) {
 	startPtr = i_pHeapMemory;
 	sizeOfHeap = i_HeapMemorySize;
@@ -22,11 +26,15 @@ HeapManager * HeapManager::destroy()
 }
 
 void * HeapManager::_alloc(size_t i_bytes)
-{	//Allocate space for the block desc
+{	
+	//Allocate space for the block desc
 	LinkedListNode * blockDescNode = (LinkedListNode *)startPtr;
 	
+	// Pad after block desc to make sure address starts aligned
+	size_t startPadding = DEFAULTALIGNMENT - (((uintptr_t)startPtr + sizeof(blockDescNode)) % DEFAULTALIGNMENT);
+	
 	//Actual pointer to be returned is after the block desc so add its size to reach that location
-	char * ptr = (char *)startPtr + sizeof(blockDescNode);
+	char * ptr = (char *)startPtr + sizeof(blockDescNode) + startPadding;
 	
 	//Init the block descriptor
 	blockDescNode->allocatedMemPtr = ptr;
@@ -37,10 +45,10 @@ void * HeapManager::_alloc(size_t i_bytes)
 	allocatedBlockList.insert(blockDescNode);
 	
 	//calculate size of padding required for alignment(default: 4 bytes aligned)
-	size_t padding = (((uintptr_t)ptr + i_bytes) % 4);
+	size_t endPadding = 4 - (((uintptr_t)ptr + i_bytes) % 4);
 	
 	//Change the ptr for the next allocation (current head + block desc + data + alignmentPadding) 
-	startPtr = (char *)startPtr + sizeof(blockDescNode) + i_bytes + padding;
+	startPtr = (char *)startPtr + startPadding + sizeof(blockDescNode) + i_bytes + endPadding;
 	
 	//Return the allocated pointer
 	return ptr;
@@ -48,7 +56,31 @@ void * HeapManager::_alloc(size_t i_bytes)
 
 void * HeapManager::_alloc(size_t i_bytes, unsigned int i_alignment)
 {
-	return nullptr;
+	//Allocate space for the block desc
+	LinkedListNode * blockDescNode = (LinkedListNode *)startPtr;
+
+	//Pad after blockDescriptor  to make sure address is aligned
+	size_t startPadding = i_alignment - (((uintptr_t)startPtr + sizeof(blockDescNode)) % i_alignment);
+	
+	//Actual pointer to be returned is after the block desc so add its size to reach that location
+	char * ptr = (char *)startPtr + sizeof(blockDescNode) + startPadding;
+
+	//Init the block descriptor
+	blockDescNode->allocatedMemPtr = ptr;
+	blockDescNode->size = i_bytes;
+	blockDescNode->next = NULL;
+
+	//Add the node to allocatedMemList
+	allocatedBlockList.insert(blockDescNode);
+
+	//calculate size of padding required for alignment
+	size_t endPadding = i_alignment - (((uintptr_t)ptr + i_bytes) % i_alignment);
+
+	//Change the ptr for the next allocation (current head + block desc + data + alignmentPadding) 
+	startPtr = (char *)startPtr + startPadding + sizeof(blockDescNode) + i_bytes + endPadding;
+
+	//Return the allocated pointer
+	return ptr;
 }
 
 bool HeapManager::_free(void * i_ptr)
@@ -62,25 +94,43 @@ void HeapManager::collect()
 
 size_t HeapManager::getLargestFreeBlock() const
 {
-	return size_t();
+	size_t largestFreeBlock = 0;
+	LinkedListNode * temp = freeBlocksList.GetStart();
+	for (unsigned int i = 0; i < freeBlocksList.GetLength(); ++i) {
+		if (temp->size > largestFreeBlock) {
+			largestFreeBlock = temp->size;
+		}
+		temp = temp->next;
+	}
+	return largestFreeBlock;
 }
 
 size_t HeapManager::getTotalFreeMemory() const
 {
-	return size_t();
+	size_t totalFreeMem = 0;
+	LinkedListNode * temp = freeBlocksList.GetStart();
+	for (unsigned int i = 0; i < freeBlocksList.GetLength(); ++i) {
+		totalFreeMem = totalFreeMem + temp->size;
+		temp = temp->next;
+	}
 }
 
 bool HeapManager::Contains(void * i_ptr) const
 {
-	return false;
+	if (allocatedBlockList.FindElement(i_ptr) || freeBlocksList.FindElement(i_ptr))
+		return true;
+	else
+		return false;
 }
 
 bool HeapManager::IsAllocated(void * i_ptr) const
 {
-	return false;
+	return allocatedBlockList.FindElement(i_ptr);
 }
 
 void HeapManager::ShowFreeBlocks() const
 {
+	std::cout << "Free Blocks List:" << std::endl;
+	freeBlocksList.PrintNodes();
 }
 
