@@ -1,7 +1,9 @@
 #pragma once
+
 struct LinkedListNode
-{	
-	int value;
+{
+	size_t size;
+	void * allocatedMemPtr;
 	LinkedListNode * next;
 };
 
@@ -15,8 +17,8 @@ public:
 	LinkedList();
 	void insert(LinkedListNode *);
 	void insert(LinkedListNode *, unsigned int);
-	void remove();
-	void remove(unsigned int);
+	LinkedListNode * remove();
+	LinkedListNode * remove(unsigned int);
 	unsigned int GetLength();
 	LinkedListNode * GetAt(unsigned int);
 };

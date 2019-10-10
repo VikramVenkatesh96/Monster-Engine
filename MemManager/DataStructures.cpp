@@ -48,7 +48,7 @@ void LinkedList::insert(LinkedListNode * node, unsigned int index)
 }
 
 
-void LinkedList::remove()
+LinkedListNode * LinkedList::remove()
 {
 	//Check for existence
 	assert(length > 0);
@@ -58,18 +58,20 @@ void LinkedList::remove()
 		start = start->next;
 	else
 		start = NULL;
-	free(temp);                       //Manage memory
 	length--;
+	//free(temp);                       //Manage memory for testing
+	return temp;
 }
 
 //Overloaded instance for removing from an index
-void LinkedList::remove(unsigned int index)
+LinkedListNode * LinkedList::remove(unsigned int index)
 {
 	//Check for existence
 	assert(length > 0);
 	//Check if index in range
 	assert(index < length);
 	LinkedListNode * temp = start;
+	LinkedListNode * returnPtr;
 	if (length == 1)
 		start = NULL;
 	else {
@@ -79,9 +81,11 @@ void LinkedList::remove(unsigned int index)
 		}
 		LinkedListNode * temp1 = temp->next;
 		temp->next = temp1->next;
-		free(temp1);				//Manage Memory
+		//free(temp1);				//Manage Memory for testing
+		returnPtr = temp1;
 	}
 	length--;
+	return returnPtr;
 }
 
 unsigned int LinkedList::GetLength() {
@@ -124,13 +128,13 @@ void BinarySearchTree::Insert(BinarySearchTreeNode * node)
 					break;
 				else
 					temp = temp->rChild;
-			}			
+			}
 		}
 		//Add that node to the leaf
 		if (node->value <= temp->value)
 			temp->lChild = node;
 		else
-			temp->rChild = node;	
+			temp->rChild = node;
 	}
 	//Increase size		
 	size++;
@@ -189,7 +193,7 @@ void BinarySearchTree::Remove(int value)
 			BinarySearchTreeNode * successor = FindSuccessor(temp);
 			if (temp->lChild == NULL || successor->value != temp->lChild->value)
 				successor->lChild = temp->lChild;
-			if(temp->rChild == NULL || successor->value != temp->rChild->value)
+			if (temp->rChild == NULL || successor->value != temp->rChild->value)
 				successor->rChild = temp->rChild;
 			BinarySearchTreeNode * temp1 = temp;
 			root = successor;
@@ -197,7 +201,7 @@ void BinarySearchTree::Remove(int value)
 		}
 	}
 	else {
-		if (temp->lChild !=NULL && temp->lChild->value == value) {
+		if (temp->lChild != NULL && temp->lChild->value == value) {
 			if (temp->lChild->lChild == NULL && temp->lChild->rChild == NULL) {
 				BinarySearchTreeNode * temp1 = temp->lChild;
 				temp->lChild = NULL;
@@ -206,9 +210,9 @@ void BinarySearchTree::Remove(int value)
 			else {
 				BinarySearchTreeNode * successor = FindSuccessor(temp->lChild);
 				if (size > 3) {
-					if(successor->value != temp->lChild->lChild->value)
+					if (temp->lChild->lChild == NULL || successor->value != temp->lChild->lChild->value)
 						successor->lChild = temp->lChild->lChild;
-					if(successor->value != temp->lChild->rChild->value)
+					if (temp->lChild->rChild == NULL || successor->value != temp->lChild->rChild->value)
 						successor->rChild = temp->lChild->rChild;
 				}
 				BinarySearchTreeNode * temp1 = temp->lChild;
@@ -225,9 +229,9 @@ void BinarySearchTree::Remove(int value)
 			else {
 				BinarySearchTreeNode * successor = FindSuccessor(temp->rChild);
 				if (size > 3) {
-					if (successor->value != temp->rChild->lChild->value)
+					if (temp->rChild->lChild == NULL || successor->value != temp->rChild->lChild->value)
 						successor->lChild = temp->rChild->lChild;
-					if (successor->value != temp->rChild->rChild->value)
+					if (temp->rChild->rChild == NULL || successor->value != temp->rChild->rChild->value)
 						successor->rChild = temp->rChild->rChild;
 				}
 				BinarySearchTreeNode * temp1 = temp->rChild;
