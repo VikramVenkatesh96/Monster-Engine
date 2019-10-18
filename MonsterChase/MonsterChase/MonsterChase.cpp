@@ -2,7 +2,7 @@
 //
 #include <iostream>
 #include <stdlib.h>
-#include <string>
+#include <string.h>
 #include <conio.h>
 #include <ctype.h>
 
@@ -11,6 +11,7 @@
 #define GRIDX 256
 #define GRIDY 256
 #define PLAYERSPEED 1
+
 
 
 class Monster {
@@ -24,12 +25,14 @@ private:
 	int moveAI;
 public:	
 	Monster(char* name) {
-		this->name = name;
+		this->name = (char *)malloc(sizeof(char) * (strlen(name) + 1));
+		CopyString(this->name, name, strlen(name));
+		//this->name = name;
 		genCharacterstics();
 	}
 	
 	~Monster() {
-		free(name);
+		free(this->name);
 	}
 
 	static char* giveName() {											//Monster Name Generator
@@ -93,6 +96,12 @@ public:
 		lifeTime--;
 	}
 	
+	void CopyString(char * dest, char * src, unsigned int size) {
+		for (unsigned int i = 0; i < size; ++i) {
+			dest[i] = src[i];
+		}
+		dest[size] = '\0';
+	}
 };
 
 char * TakeStringInput(char *);
@@ -129,6 +138,7 @@ int main()
 		std::cout << "\nEnter name for monster " << index + 1 << ": ";
 		temp = TakeStringInput(temp);
 		monsters[index] = new Monster(temp);
+		free(temp);
 		index++;
 	}
 
@@ -148,12 +158,7 @@ int main()
 	index = 0;																								//freeing memory here
 	
 	free(player);
-	while (index < numberOfMonsters) {
-		delete[] monsters[index];
-		index++;
-	}
 	delete[] monsters;
-	
 }
 
 char * TakeStringInput(char* string) {
