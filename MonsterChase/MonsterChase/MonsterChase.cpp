@@ -2,10 +2,11 @@
 //
 #include <iostream>
 #include <stdlib.h>
+#include <string>
 #include <conio.h>
 #include <ctype.h>
 
-#define MAXSIZE 32
+
 #define MAXNUMBER 64
 #define GRIDX 256
 #define GRIDY 256
@@ -25,6 +26,10 @@ public:
 	Monster(char* name) {
 		this->name = name;
 		genCharacterstics();
+	}
+	
+	~Monster() {
+		free(name);
 	}
 
 	static char* giveName() {											//Monster Name Generator
@@ -88,14 +93,10 @@ public:
 		lifeTime--;
 	}
 	
-	void DeleteMonster() {
-		delete[] name;
-	}
-	
 };
 
-
-void PrintPositions(int*, int*, int, Monster**);
+char * TakeStringInput(char *);
+void PrintPositions(int*, int*, char*, int, Monster**);
 void PrintGUI();
 void MovePlayer(char, int*, int*);
 void MoveMonsters(int, Monster**);
@@ -107,7 +108,7 @@ int main()
 	Monster **monsters = new Monster*[MAXNUMBER];
 	int index;
 	int numberOfMonsters;
-	char* player = new char[MAXSIZE];
+	char* player = (char *)malloc(sizeof(char));
 	int playerPosX;
 	int playerPosY;
 	char input;
@@ -115,7 +116,7 @@ int main()
 
 	std::cout << "\t\t\t\tMONSTER CHASE\n\n";
 	std::cout << "Enter Player Name: ";
-	std::cin >> player;
+	player = TakeStringInput(player);
 	playerPosX = rand() % GRIDX;
 	playerPosY = rand() % GRIDY;
 	
@@ -124,16 +125,16 @@ int main()
 	index = 0;
 	
 	while (index < numberOfMonsters) {
-		char* temp = new char[MAXSIZE];
+		char* temp = (char *)malloc(sizeof(char));
 		std::cout << "\nEnter name for monster " << index + 1 << ": ";
-		std::cin >> temp;
+		temp = TakeStringInput(temp);
 		monsters[index] = new Monster(temp);
 		index++;
 	}
 
 	while (!isDead) {																						//Main game Loop
 		isDead = CheckState(playerPosX, playerPosY, numberOfMonsters, monsters);
-		PrintPositions(&playerPosX,&playerPosY,numberOfMonsters,monsters);
+		PrintPositions(&playerPosX,&playerPosY,player,numberOfMonsters,monsters);
 		PrintGUI();
 		input = (char)_getch();
 		input = (char)tolower(input);
@@ -145,13 +146,26 @@ int main()
 	}
 	
 	index = 0;																								//freeing memory here
-	delete[] player;
+	
+	free(player);
 	while (index < numberOfMonsters) {
 		delete[] monsters[index];
 		index++;
 	}
 	delete[] monsters;
 	
+}
+
+char * TakeStringInput(char* string) {
+	char c;
+	int index = 0;
+	while ((c = (char)_getche()) != '\r') {
+		index++;
+		string = (char*)realloc(string, sizeof(char) * (index + 1));
+		string[index - 1] = c;
+		string[index] = '\0';
+	}
+	return string;
 }
 
 bool CheckState(int X, int Y, int n, Monster** monsters) {													// Kill player if collided with monster
@@ -168,9 +182,9 @@ bool CheckState(int X, int Y, int n, Monster** monsters) {													// Kill p
 }
 
 
-void PrintPositions(int *X, int *Y, int n, Monster** monster)
+void PrintPositions(int *X, int *Y, char * player, int n, Monster** monster)
 {
-	std::cout << "\nPlayer at " << "(" << *X << "," << *Y << ")";
+	std::cout << "\n" << player << " at " << "(" << *X << "," << *Y << ")";
 	int index = 0;
 	while (index < n) {
 		std::cout << "\n";
