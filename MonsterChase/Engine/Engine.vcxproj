@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="IO.h" />
     <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="Point2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="IO.cpp" />
     <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="Point2D.cpp" />
   </ItemGroup>
