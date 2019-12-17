@@ -9,7 +9,6 @@ BlockDescriptor* HeapManager::lastFreedMem;
 BlockDescriptor* HeapManager::lastAllocatedMem;
 #pragma endregion
 
-unsigned int overflowCounter = 0;
 
 HeapManager::HeapManager(void* i_pHeapMemory, size_t i_HeapMemorySize, unsigned int i_numDescriptors) {
 	startPtr = i_pHeapMemory;
@@ -197,10 +196,6 @@ void* HeapManager::_alloc(size_t i_bytes, unsigned int i_alignment)
 		//Store size remaining in previous BlockDescriptor
 		//This step has to be done at this point as this very same ptr can be overriden
 		//if returnPtr = newBlockDescriptor
-		if ((tempPtr - (ptr - sizeof(BlockDescriptor))) > reinterpret_cast<BlockDescriptor*>(returnPtr)->size)
-		{
-			overflowCounter++;
-		}
 		reinterpret_cast<BlockDescriptor*>(returnPtr)->size -= tempPtr -(ptr - sizeof(BlockDescriptor));
 		reinterpret_cast<BlockDescriptor*>(returnPtr)->markedForCollect = true;
 
@@ -328,12 +323,7 @@ void HeapManager::collect()
 
 				if (tempBD->markedForCollect)
 				{
-					if (tempBD->size >= sizeHeap) {
-						overflowCounter++;
-						break;
-					}
 					firstIterator->size += tempBD->size;
-					
 				}
 				else
 				{
@@ -377,17 +367,11 @@ void HeapManager::collect()
 #pragma endregion
 
 				firstIterator->size += secondIterator->size;
-				if (firstIterator->size >= sizeHeap) {
-					int x = 0;
-				}
 				//Reset secondIterator to recheck for contigous allocations
 				secondIterator = firstIterator->next;
 				continue;
 			}
-			if (secondIterator->next == nullptr)
-			{
-				int x = 0;
-			}
+
 			secondIterator = secondIterator->next;
 		}
 
