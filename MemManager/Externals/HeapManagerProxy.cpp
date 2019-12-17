@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <stdio.h>
 
+#define __TRACK_ALLOCATIONS
 
 namespace HeapManagerProxy
 {
