@@ -2,10 +2,15 @@
 #include "MemoryManager.h"
 #include<iostream>
 
+Monster::Monster()
+{
+}
 Monster::Monster(int GRIDX, int GRIDY)
-{	name =(char*)MemoryManager::AllocateMem(sizeof(char));
+{	
+	position->x = static_cast <float>(rand() % GRIDX);
+	position->y = static_cast <float>(rand() % GRIDY);
+	name =(char*)MemoryManager::AllocateMem(sizeof(char));
 	lifeTime = rand() % 15;
-	position = new Point2D(static_cast <float>(rand() % GRIDX), static_cast <float>(rand() % GRIDY));
 }
 
 void Monster::Move(Point2D* toGo) {
@@ -15,5 +20,4 @@ void Monster::Move(Point2D* toGo) {
 
 Monster::~Monster() {
 	MemoryManager::FreeMem(name);
-	delete position;
 }

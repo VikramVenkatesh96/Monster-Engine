@@ -1,2 +1,27 @@
-﻿  MonsterChase.cpp
-  MonsterChase.vcxproj -> C:\Users\u1271129\source\repos\MonsterChase\Debug\MonsterChase.exe
+﻿  Monster.cpp
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(10,28): error C2061: syntax error: identifier 'GameObject'
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(10,28): error C2535: 'Component::Component(void)': member function already defined or declared
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(9): message : see declaration of 'Component::Component'
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(14,15): error C2143: syntax error: missing ';' before '*'
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(14,15): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(14,27): error C2238: unexpected token(s) preceding ';'
+  MonsterChase.cpp
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(10,28): error C2061: syntax error: identifier 'GameObject'
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(10,28): error C2535: 'Component::Component(void)': member function already defined or declared
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(9): message : see declaration of 'Component::Component'
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(14,15): error C2143: syntax error: missing ';' before '*'
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(14,15): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(14,27): error C2238: unexpected token(s) preceding ';'
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\MonsterChase\MonsterChase.cpp(27,17): error C2065: '_NORMAL_BLOCK': undeclared identifier
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\MonsterChase\MonsterChase.cpp(28,18): error C2065: '_NORMAL_BLOCK': undeclared identifier
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\MonsterChase\MonsterChase.cpp(29,15): error C2065: '_NORMAL_BLOCK': undeclared identifier
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\MonsterChase\MonsterChase.cpp(30,17): error C2065: '_NORMAL_BLOCK': undeclared identifier
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\MonsterChase\MonsterChase.cpp(153,2): error C3861: '_CrtDumpMemoryLeaks': identifier not found
+  Player.cpp
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(10,28): error C2061: syntax error: identifier 'GameObject'
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(10,28): error C2535: 'Component::Component(void)': member function already defined or declared
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(9): message : see declaration of 'Component::Component'
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(14,15): error C2143: syntax error: missing ';' before '*'
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(14,15): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+C:\Users\Vikram96\Documents\HeapAllocator\MonsterChase\Engine\Component.h(14,27): error C2238: unexpected token(s) preceding ';'
+  Generating Code...

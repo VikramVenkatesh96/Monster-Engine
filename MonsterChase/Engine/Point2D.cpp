@@ -1,10 +1,9 @@
 #include "Point2D.h"
 #include <iostream>
 
-
 Point2D::Point2D() {
-	x = 0;
-	y = 0;
+	this->x = 0;
+	this->y = 0;
 }
 
 //Overloaded constructor for direct input

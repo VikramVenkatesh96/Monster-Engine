@@ -8,7 +8,7 @@ public:
 	Point2D();
 	Point2D(float,float);
 	void PrintPoint();
-
+	
 	Point2D operator + (Point2D const &obj) {
 		Point2D res;
 		res.x = x + obj.x;
