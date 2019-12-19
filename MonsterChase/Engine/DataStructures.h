@@ -1,5 +1,4 @@
 #pragma once
-#include "Component.h"
 #include "stdlib.h"
 
 template <class T>

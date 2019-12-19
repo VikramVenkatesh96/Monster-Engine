@@ -1,7 +1,7 @@
 #pragma once
+#include "Component.h"
 #include "DataStructures.h"
 #include "Point2D.h"
-
 class GameObject
 {
 	
