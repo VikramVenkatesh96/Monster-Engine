@@ -1,15 +1,15 @@
 #include "Input.h"
+#include "GameObject.h"
 #include <conio.h>
 #include <iostream>
 
 Input::Input(GameObject * root)
 {
-	Component(root);
+	gameObject = root;
 	inputAxis = new Point2D();
 }
 void Input::Start()
 {
-	std::cout << "Input component Registered";
 }
 Point2D* Input::GetAxis() 
 {

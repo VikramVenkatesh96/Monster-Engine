@@ -13,6 +13,19 @@ Point2D::Point2D(float x ,float y)
 	this->y = y;
 }
 
+float Point2D::Length()
+{
+	return sqrt(x*x + y*y);
+}
+
+Point2D* Point2D::Normalize()
+{
+	Point2D* normalized = new Point2D();
+	normalized->x = x / Length();
+	normalized->y = y / Length();
+	return normalized;
+}
+
 void Point2D::PrintPoint() {
 	std::cout << "(" << x << "," << y << ")";
 }

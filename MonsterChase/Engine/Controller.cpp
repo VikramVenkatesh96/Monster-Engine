@@ -1,13 +1,15 @@
 #include "Controller.h"
+#include "GameObject.h"
 #include "Input.h"
+#include "AIBehaviour.h"
 #include <iostream>
 Controller::Controller(GameObject * root,ControllerType type)
-{
+{	
+	gameObject = root;
 	controllerType = type;
 }
 void Controller::Start()
 {
-	std::cout << "Controller Registered";
 }
 
 void Controller::Update()
@@ -22,11 +24,19 @@ void Controller::Update()
 		}
 		else
 		{
-			std::cout << "No Input Component Available";
+			std::cout << "No Input Component Available"<< std::endl;
 		}
 	}
 	else if (controllerType == ControllerType::AI)
 	{
-		//getAIcomponent
+		AIBehaviour* behaviour = gameObject->GetComponent<AIBehaviour>();
+		if (behaviour)
+		{
+			*gameObject->position = *gameObject->position + *behaviour->GetAIMovement();
+		}
+		else
+		{
+			std::cout << "No AI behaviour component found"<< std::endl;
+		}
 	}
 }

@@ -1,53 +1,30 @@
 //Engine Headers
 #include "Point2D.h"
+#include "Component.h"
+#include "GameObject.h"
 #include "Monster.h"
-#include "Player.h"
-#include "GameObject.h"	
+#include "PlayerCharacter.h"
 #include "MainGameLoopVariables.h"
 
-
-//MemDebugTool
-#ifdef _DEBUG
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
-// allocations to be of _CLIENT_BLOCK type
-#else
-#define DBG_NEW new
-#endif
-
 //Macros
-#define _CRTDBG_MAP_ALLOC
 #define MAXSIZE 64
 #define GRIDX 256
 #define GRIDY 256
 #define PLAYERSPEED 1
 //End Macros
 
-//Globals
-Point2D* LEFT = DBG_NEW Point2D(-PLAYERSPEED, 0);
-Point2D* RIGHT = DBG_NEW Point2D(PLAYERSPEED, 0);
-Point2D* UP = DBG_NEW Point2D(0, PLAYERSPEED);
-Point2D* DOWN = DBG_NEW Point2D(0, -PLAYERSPEED);
-//End Globals
-
-//Function declarations
-//void PrintGameIntro();
-//bool CheckState(Point2D*,int,Monster**);
-//void PrintPositions(char*,/*Point2D*,*/int, Monster**);
-//void PrintGUI();
-//void EnforceBoundaries(Point2D*);
-//void MovePlayer(char,Point2D*);
-//bool CheckBoundaries(Point2D*);
-//void MoveMonsters(int,Monster**);
-//void ManageMonsterGen(int*, Monster**);
-//void GenMonsterName(char*);
-//void Point2D_UnitTest();
-//End Function Declarations
 
 int main() {
 	//For dynamic updates on gameObjects list
 	GameObject::SetGlobalGameObjectList(&gameObjects);
-	Player* player = new Player();
+
+	//Drag in the player
+	PlayerCharacter* player;
+	player = new PlayerCharacter();
+
+	//Drag in a monster
+	Monster* monster;
+	monster = new Monster(10,10);
 	//Run Start Loop
 	
 	//Get the start node of the list all game objects
@@ -55,7 +32,7 @@ int main() {
 	while (gameObjectIterator != nullptr)
 	{
 		//Get the start node of all components in the gameObject
-		ListNode<Component>* componentIterator = gameObjectIterator->value->GetAllComponents().start;
+		ListNode<Component>* componentIterator = gameObjectIterator->value->GetAllComponents()->start;
 		while (componentIterator != nullptr)
 		{
 			componentIterator->value->Start();
@@ -72,7 +49,7 @@ int main() {
 		while (gameObjectIterator != nullptr)
 		{
 			//Get the start node of all components in the gameObject
-			ListNode<Component>* componentIterator = gameObjectIterator->value->GetAllComponents().start;
+			ListNode<Component>* componentIterator = gameObjectIterator->value->GetAllComponents()->start;
 			while (componentIterator != nullptr)
 			{
 				componentIterator->value->Update();
@@ -149,8 +126,8 @@ int main() {
 	//delete RIGHT;
 	//delete UP;
 	//delete DOWN;
-
-	_CrtDumpMemoryLeaks();
+	int x ;
+	x = 5;
 }
 
 

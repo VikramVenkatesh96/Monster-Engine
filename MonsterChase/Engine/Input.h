@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
-#include "GameObject.h"
+#include "Point2D.h"
+
 class Input:public Component
 {
 public:

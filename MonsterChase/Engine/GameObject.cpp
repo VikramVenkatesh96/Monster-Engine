@@ -1,3 +1,4 @@
+#include "Component.h"
 #include "GameObject.h"
 #include<iostream>
 
@@ -12,6 +13,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+	components.RemoveAll();
 	globalGameObjectList->Remove(this);
 	
 }
@@ -39,4 +41,9 @@ void GameObject::RemoveAllComponents()
 void GameObject::SetGlobalGameObjectList(List<GameObject>* gameObjectList)
 {
 	globalGameObjectList = gameObjectList;
+}
+
+List<GameObject>* GameObject::GetGlobalGameObjectList()
+{
+	return globalGameObjectList;
 }

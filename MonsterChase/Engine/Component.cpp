@@ -1,9 +1,8 @@
 #include "Component.h"
+#include "GameObject.h"
 #include <iostream>
-
-Component::Component(GameObject* root)
+Component::Component()
 {
-    gameObject = root;
 }
 void Component::Start()
 {

@@ -7,6 +7,8 @@ public:
 	float y;
 	Point2D();
 	Point2D(float,float);
+	float Length();
+	Point2D* Normalize();
 	void PrintPoint();
 	
 	Point2D operator + (Point2D const &obj) {

@@ -19,25 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIBehaviour.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DataStructures.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GamePlayStatics.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="IO.h" />
     <ClInclude Include="MainGameLoopVariables.h" />
     <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="PlayerCharacter.h" />
     <ClInclude Include="Point2D.h" />
+    <ClInclude Include="Script.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIBehaviour.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DataStructures.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GamePlayStatics.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="IO.cpp" />
     <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="Point2D.cpp" />
+    <ClCompile Include="Script.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

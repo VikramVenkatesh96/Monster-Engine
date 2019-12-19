@@ -12,5 +12,9 @@ public:
 	Monster(int,int);
 	~Monster();
 	void Move(Point2D*);
+
+private:
+	void ScriptStart();
+	void ScriptUpdate();
 };
 

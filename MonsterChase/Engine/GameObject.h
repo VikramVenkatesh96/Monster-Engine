@@ -1,7 +1,8 @@
 #pragma once
-#include "Component.h"
 #include "DataStructures.h"
 #include "Point2D.h"
+class Component;
+
 class GameObject
 {
 	
@@ -9,7 +10,7 @@ public:
 	
 	Point2D* position;
 	GameObject();
-	~GameObject();
+	virtual ~GameObject();
 	void Translate(Point2D);
 
 	//Component Functions
@@ -23,6 +24,7 @@ public:
 	void RemoveComponent(unsigned int);
 	void RemoveAllComponents();
 	static void SetGlobalGameObjectList(List<GameObject>*);
+	static List<GameObject>* GetGlobalGameObjectList();
 
 private:
 	List<Component> components;
