@@ -155,12 +155,14 @@
     <ClCompile Include="HeapManager.cpp" />
     <ClCompile Include="HeapManager_UnitTest.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Point2D.cpp" />
     <ClCompile Include="UnitTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DataStructures.h" />
     <ClInclude Include="Externals\HeapManagerProxy.h" />
     <ClInclude Include="HeapManager.h" />
+    <ClInclude Include="Point2D.h" />
     <ClInclude Include="UnitTests.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,5 +1,6 @@
 #include "UnitTests.h"
 #include "HeapManagerProxy.h"
+#include "Point2D.h"
 #include "DataStructures.h"
 #include <Windows.h>
 #include <iostream>
