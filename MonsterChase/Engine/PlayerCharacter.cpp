@@ -8,11 +8,13 @@
 
 PlayerCharacter::PlayerCharacter()
 {
+	Controller* controllerComp = new Controller(this, ControllerType::Player);
 	std::function<void()> startFunc = std::bind(&PlayerCharacter::ScriptStart, this);
 	std::function<void()> updateFunc = std::bind(&PlayerCharacter::ScriptUpdate, this);
 	Script* script = new Script(this, startFunc, updateFunc);
-	this->AddComponent(new Input(this));
-	this->AddComponent(new Controller(this, ControllerType::Player));
+	Input* inputComponent = new Input(this);
+	this->AddComponent(inputComponent);
+	this->AddComponent(controllerComp);
 	this->AddComponent(script);
 }
 

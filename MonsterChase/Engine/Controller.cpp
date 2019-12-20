@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "AIBehaviour.h"
 #include <iostream>
+
 Controller::Controller(GameObject * root,ControllerType type)
 {	
 	gameObject = root;

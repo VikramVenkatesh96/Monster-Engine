@@ -27,20 +27,20 @@ public:
 	static List<GameObject>* GetGlobalGameObjectList();
 
 private:
-	List<Component> components;
+	List<Component>* components;
 	static List<GameObject>* globalGameObjectList;
 };
 
 template<class T>
 void GameObject::AddComponent(T* component)
 {
-	components.Add(component);
+	components->Add(component);
 }
 
 template<class T>
 T* GameObject::GetComponent()
 {
-	ListNode<Component>* iterator = components.start;
+	ListNode<Component>* iterator = components->start;
 	while (iterator != nullptr)
 	{
 		if (dynamic_cast<T*>(iterator->value) != nullptr) 
