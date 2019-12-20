@@ -58,76 +58,7 @@ int main() {
 			gameObjectIterator = gameObjectIterator->next;
 		}
 	}
-	////Point2D UnitTest
-	////Point2D_UnitTest();
-
-	////Intro Screen
-	//PrintGameIntro();
-
-	////Player Initialization
-	//std::cout << "\nEnter Player name:";
-	//char* playerName = (char*)MemoryManager::AllocateMem(sizeof(char));
-	//IO::TakeStringInput(playerName);
-	//Point2D* playerPos = DBG_NEW Point2D();
-
-	////Monster Initialization
-	//int nMonsters;
-	//std::cout << "Enter Number of monsters to spawn:";
-	//std::cin >> nMonsters;
-	//Monster** monsters = (Monster**)MemoryManager::AllocateMem(sizeof(Monster*)*nMonsters);
-	//
-	//for (int i = 0; i < nMonsters; ++i) {
-	//	monsters[i] = new Monster(GRIDX, GRIDY);
-	//	std::cout << "Enter name for Monster" << i + 1 << ":";
-	//	IO::TakeStringInput(monsters[i]->name);
-	//}
-
-	////GameLoop variables init
-	//bool isDead = false;
-	//bool isWin = false;
-	//char input;
-
-	//monsters[1]->lifeTime = 1;
-
-	////Main Game Loop
-
-	//while (!isDead && !isWin) {
-	//	//system("CLS");
-	//	isDead = CheckState(playerPos, nMonsters, monsters);
-	//	PrintPositions(playerName,/*playerPos,*/nMonsters,monsters);
-	//	PrintGUI();
-	//	input = (char)_getch();
-	//	input = (char)tolower(input);
-	//	if (input == 'q')
-	//		break;
-	//	MovePlayer(input,playerPos);
-	//	MoveMonsters(nMonsters,monsters);
-	//	ManageMonsterGen(&nMonsters, monsters);
-	//	if (nMonsters == 0)
-	//		isWin = true;
-	//}
-	//
-	//if (isWin) {
-	//	std::cout << "\nYou Win!!";
-	//	nMonsters = 1;
-	//}
-	//
-	////Clear Game Memory
-	////Local cleanup
-	//MemoryManager::FreeMem(playerName);
-	//delete playerPos;
-
-	//for (int i = 0; i < nMonsters; i++) {
-	//	delete monsters[i];
-	//}
-
-	////Global cleanup
-	//delete LEFT;
-	//delete RIGHT;
-	//delete UP;
-	//delete DOWN;
-	int x ;
-	x = 5;
+	
 }
 
 
