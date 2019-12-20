@@ -1,17 +1,10 @@
-//Game Headers
-#include "Monster.h"
-
 //Engine Headers
 #include "Point2D.h"
 #include "Component.h"
 #include "GameObject.h"
-#include "MemoryManager.h"
+#include "Monster.h"
 #include "PlayerCharacter.h"
 #include "MainGameLoopVariables.h"
-
-//STL Headers
-#include<assert.h>
-#include<windows.h>
 
 //Macros
 #define MAXSIZE 64
@@ -22,31 +15,16 @@
 
 
 int main() {
-	//Reserve memory from system for game heap
-	heapStart = HeapAlloc(GetProcessHeap(), 0, sizeOfHeap);
-	assert(heapStart);
-
-	//Init the Memory Manager
-	MemoryManager::Init(heapStart,sizeOfHeap,sizes,counts,count);
-
 	//For dynamic updates on gameObjects list
 	GameObject::SetGlobalGameObjectList(&gameObjects);
 
-	//Test case to showcase new and delete operator integrated with monster chase
-	Point2D* point1 = new Point2D(4,6);
-	Point2D point3 = *point1;
-	point3.x += 6;
-	point3.PrintPoint();
+	//Drag in the player
+	PlayerCharacter* player;
+	player = new PlayerCharacter();
 
-	delete point1;
-	
-	////Drag in the player
-	//PlayerCharacter* player;
-	//player = new PlayerCharacter();
-
-	////Drag in a monster
-	//Monster* monster;
-	//monster = new Monster(10,10);
+	//Drag in a monster
+	Monster* monster;
+	monster = new Monster(10,10);
 	//Run Start Loop
 	
 	//Get the start node of the list all game objects
@@ -81,11 +59,6 @@ int main() {
 		}
 	}
 	
-	//Destroy Memory Manager
-	MemoryManager::Destroy();
-	
-	//Free memory back to system
-	HeapFree(GetProcessHeap(), 0, const_cast<void*>(heapStart));
 }
 
 

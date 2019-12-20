@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIBehaviour.h" />
-    <ClInclude Include="BitArray.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DataStructures.h" />
@@ -36,7 +35,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIBehaviour.cpp" />
-    <ClCompile Include="BitArray.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DataStructures.cpp" />

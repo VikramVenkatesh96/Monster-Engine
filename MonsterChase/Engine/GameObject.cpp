@@ -7,13 +7,13 @@ List<GameObject>*GameObject::globalGameObjectList;
 GameObject::GameObject()
 {
 	position = new Point2D();
-	components = new List<Component>();
+	components = List<Component>();
 	globalGameObjectList->Add(this);
 }
 
 GameObject::~GameObject()
 {
-	components->RemoveAll();
+	components.RemoveAll();
 	globalGameObjectList->Remove(this);
 	
 }
@@ -25,17 +25,17 @@ void GameObject::Translate(Point2D toPosition) {
 
 List<Component>* GameObject::GetAllComponents()
 {
-	return components;
+	return &components;
 }
 
 void GameObject::RemoveComponent(unsigned int index)
 {
-	components->Remove(index);
+	components.Remove(index);
 }
 
 void GameObject::RemoveAllComponents()
 {
-	components->RemoveAll();
+	components.RemoveAll();
 }
 
 void GameObject::SetGlobalGameObjectList(List<GameObject>* gameObjectList)
