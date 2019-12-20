@@ -21,8 +21,12 @@ float Point2D::Length()
 Point2D* Point2D::Normalize()
 {
 	Point2D* normalized = new Point2D();
-	normalized->x = x / Length();
-	normalized->y = y / Length();
+	float length = Length();
+	if (length != 0)
+	{
+		normalized->x = x / length;
+		normalized->y = y / length;
+	}
 	return normalized;
 }
 

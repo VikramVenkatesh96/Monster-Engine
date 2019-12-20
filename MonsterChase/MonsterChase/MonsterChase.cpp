@@ -1,7 +1,10 @@
 //Engine Headers
 #include "Point2D.h"
 #include "Component.h"
+#include "Script.h"
 #include "GameObject.h"
+#include "GameplayStatics.h"
+#include "GamePlayStatics.cpp"
 #include "Monster.h"
 #include "PlayerCharacter.h"
 #include "MainGameLoopVariables.h"
@@ -13,11 +16,29 @@
 #define PLAYERSPEED 1
 //End Macros
 
+//Gameplay scripts
+void gamePlayStart() {
 
+	PlayerCharacter* player = GamePlayStatics::FindObjectOfClass<PlayerCharacter>();
+	Monster* monster = GamePlayStatics::FindObjectOfClass<Monster>();
+	if (*player->position == *monster->position)
+	{
+		endUpdate = true;
+	}
+}
+void gamePlayUpdate() {
+
+	PlayerCharacter* player = GamePlayStatics::FindObjectOfClass<PlayerCharacter>();
+	Monster* monster = GamePlayStatics::FindObjectOfClass<Monster>();
+	if (*player->position == *monster->position)
+	{
+		endUpdate = true;
+	}
+}
 int main() {
 	//For dynamic updates on gameObjects list
 	GameObject::SetGlobalGameObjectList(&gameObjects);
-
+	
 	//Drag in the player
 	PlayerCharacter* player;
 	player = new PlayerCharacter();
@@ -25,6 +46,8 @@ int main() {
 	//Drag in a monster
 	Monster* monster;
 	monster = new Monster(10,10);
+	
+	
 	//Run Start Loop
 	
 	//Get the start node of the list all game objects
@@ -40,11 +63,13 @@ int main() {
 		}
 		gameObjectIterator = gameObjectIterator->next;
 	}
+	gamePlayStart();
 
 	//Next Run Update loop till end of MainGameLoop
 
-	while (true)
+	while (!endUpdate)
 	{
+		gamePlayUpdate();
 		gameObjectIterator = gameObjects.start;
 		while (gameObjectIterator != nullptr)
 		{
@@ -58,7 +83,10 @@ int main() {
 			gameObjectIterator = gameObjectIterator->next;
 		}
 	}
-	
+
+	//Cleanup everything
+	delete monster;
+	delete player;
 }
 
 
