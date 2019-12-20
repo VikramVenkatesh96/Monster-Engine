@@ -3,6 +3,6 @@ class IO
 {
 public:
 	IO();
-	static void TakeStringInput(char*);
+	static bool TakeStringInput(char*);
 };
 

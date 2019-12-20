@@ -4,7 +4,7 @@
 IO::IO()
 {
 }
-void IO::TakeStringInput(char* string) {
+bool IO::TakeStringInput(char* string) {
 	char c;
 	int index = 0;
 	while ((c = (char)_getche()) != '\r') {
@@ -12,5 +12,13 @@ void IO::TakeStringInput(char* string) {
 		string = (char*)MemoryManager::IncreaseMem(string, sizeof(char)*(index + 1));
 		string[index - 1] = c;
 		string[index] = '\0';
+	}
+	if (index > 0)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
 	}
 }

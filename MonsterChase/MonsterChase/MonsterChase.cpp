@@ -1,20 +1,14 @@
-#ifdef _DEBUG
-#define _CRTDBG_MAP_ALLOC
 #include "IO.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <conio.h>
+#ifdef _DEBUG
 #include <ctype.h>
 #include <crtdbg.h>
-#else
-#include "IO.h"
-#include <stdlib.h>
-#include <conio.h>
-#include <stdio.h>
 #endif // _DEBUG
 
 // This is only a simple unit test.
-
+#define _CRTDBG_MAP_ALLOC
 //Function Declarations
 char* MakeSentence();
 char* MakeSentence(const char*[]);

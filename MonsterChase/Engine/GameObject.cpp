@@ -1,7 +1,5 @@
 #include "GameObject.h"
 
-
-
 GameObject::GameObject(Point2D position)
 {
 	this->position = position;
