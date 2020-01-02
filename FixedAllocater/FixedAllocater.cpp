@@ -45,6 +45,13 @@ int main(int i_arg, char**)
 	return 0;
 }
 
+/*
+This is a comprehensive Unit Test to test out this arrangement of Memory System which consists:
+	1. Three Fixed Sized Allocators
+	2. A Heap Manager
+The Unit Test does random allocations and frees them regularly. It will also do garbage collection
+at regular intervals so as to maximize allocations.
+*/
 bool MemorySystem_UnitTest()
 {
 	const size_t maxAllocations = 10 * 1024;

@@ -1,7 +1,6 @@
 #pragma once
 #include "MemorySystem.h"
 
-//Forward declaration to prevent circular dependency
 class BitArray
 {
 public:

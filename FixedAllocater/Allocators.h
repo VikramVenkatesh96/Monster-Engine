@@ -1,7 +1,10 @@
 #pragma once 
 #include <stdint.h>
-class BitArray;
+
 #define DEFAULT_ALIGNMENT 4
+
+//Forward declaration of BitArray
+class BitArray;
 
 struct BlockDescriptor {
 	size_t size;

@@ -1,7 +1,6 @@
 #include "Allocators.h"
 #include "BitArray.h"
 #include <inttypes.h>
-#include <malloc.h>
 #include <stdio.h>
 
 void* __cdecl Malloc(size_t i_size)
@@ -29,6 +28,8 @@ void __cdecl MFree(void* i_ptr)
 	}
 }
 
+//Custom operators to use our Memory System
+#pragma region Operator definitions
 void* operator new(size_t i_size)
 {
 	void* returnPtr;
@@ -76,7 +77,10 @@ void operator delete [](void* i_ptr)
 		Free(i_ptr);
 	}
 }
+#pragma endregion
+
 #pragma region FSA functions
+
 void InitFSA(const unsigned int* sizes, const unsigned int* counts, const unsigned int count)
 {
 	fixedSizes = sizes;
@@ -106,6 +110,8 @@ void* FSalloc(size_t sizeInBytes)
 	}
 	
 	uint8_t* returnPtr = allocators[index];
+
+	//Get the index of the first free block in that allocator
 	int blockIndex = bitArrays[index]->GetFirstSetBit();
 	
 	if (blockIndex == -1)
@@ -114,7 +120,9 @@ void* FSalloc(size_t sizeInBytes)
 	}
 	else
 	{
+		//Compute the corresponding block address and save in returnPtr
 		returnPtr = returnPtr + (fixedSizes[index] * blockIndex);
+		//Set the corresponding bit in the BitArray to 1 
 		bitArrays[index]->SetBit(blockIndex, 1);
 	}
 
@@ -123,9 +131,12 @@ void* FSalloc(size_t sizeInBytes)
 
 bool FSfree(void* objRef)
 {
+	//Boolean to check if the object to delete is within the fixed allocators
 	bool found = false;
 	unsigned int index;
 	uint8_t* ptr = static_cast<uint8_t*>(objRef);
+
+	//Loop to check if the given address lies within the fixed allocator address range 
 	for (index = 0; index < fixedCount; ++index)
 	{
 		if (ptr >= allocators[index] && ptr <= allocators[index] + fixedSizes[index])
@@ -137,7 +148,9 @@ bool FSfree(void* objRef)
 
 	if (found)
 	{
+		//Compute the index of the block
 		unsigned int blockIndex = (ptr - allocators[index]) / fixedSizes[index];
+		//Set the corresponding bit in the BitArray to 0 
 		bitArrays[index]->SetBit(blockIndex, 0);
 	}
 	return found;
@@ -290,7 +303,8 @@ void* FindFreedMemory(size_t sizeInBytes, unsigned int alignment)
 }
 
 void Free(void* objRef)
-{//Retreive the BlockDescriptor node
+{
+	//Retreive the BlockDescriptor node
 	BlockDescriptor* descriptor = reinterpret_cast<BlockDescriptor*>
 		(static_cast<uint8_t*>(objRef) - sizeof(BlockDescriptor));
 #pragma region Allocated LinkedList Deletion
@@ -327,6 +341,7 @@ void Free(void* objRef)
 #pragma endregion
 }
 
+//Garbage collector which can also consolidate fragmented memory
 void collect() 
 {
 	bool foundAllMarked;
