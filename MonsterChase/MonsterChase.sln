@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MonsterChase", "MonsterChas
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{7FA54CC9-A032-4510-A492-8148165F701E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D3DRenderer", "D3DRenderer\D3DRenderer.vcxproj", "{5AA63110-7071-457F-AF0C-6E3540333457}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{7FA54CC9-A032-4510-A492-8148165F701E}.Release|x64.Build.0 = Release|x64
 		{7FA54CC9-A032-4510-A492-8148165F701E}.Release|x86.ActiveCfg = Release|Win32
 		{7FA54CC9-A032-4510-A492-8148165F701E}.Release|x86.Build.0 = Release|Win32
+		{5AA63110-7071-457F-AF0C-6E3540333457}.Debug|x64.ActiveCfg = Debug|x64
+		{5AA63110-7071-457F-AF0C-6E3540333457}.Debug|x64.Build.0 = Debug|x64
+		{5AA63110-7071-457F-AF0C-6E3540333457}.Debug|x86.ActiveCfg = Debug|Win32
+		{5AA63110-7071-457F-AF0C-6E3540333457}.Debug|x86.Build.0 = Debug|Win32
+		{5AA63110-7071-457F-AF0C-6E3540333457}.Release|x64.ActiveCfg = Release|x64
+		{5AA63110-7071-457F-AF0C-6E3540333457}.Release|x64.Build.0 = Release|x64
+		{5AA63110-7071-457F-AF0C-6E3540333457}.Release|x86.ActiveCfg = Release|Win32
+		{5AA63110-7071-457F-AF0C-6E3540333457}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
