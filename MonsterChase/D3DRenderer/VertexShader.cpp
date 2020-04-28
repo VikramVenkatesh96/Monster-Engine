@@ -1,10 +1,10 @@
 #include "VertexShader.h"
 #include "StringUtils.h"
 
-VertexShader::VertexShader(Graphics & gfx, const std::string& path)
+VertexShader::VertexShader(Graphics & gfx, const std::wstring& path)
 	: path(path)
 {
-	D3DReadFileToBlob(ToWide(path).c_str(), &pByteCodeBlob);
+	D3DReadFileToBlob(path.c_str(), &pByteCodeBlob);
 	GetDevice(gfx)->CreateVertexShader(pByteCodeBlob->GetBufferPointer(), pByteCodeBlob->GetBufferSize(), nullptr, &pVertexShader);
 }
 

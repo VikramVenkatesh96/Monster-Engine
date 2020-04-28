@@ -23,12 +23,12 @@ public:
 	List<Component>* GetAllComponents();
 	void RemoveComponent(unsigned int);
 	void RemoveAllComponents();
-	static void SetGlobalGameObjectList(List<GameObject>*);
+	//static void SetGlobalGameObjectList(List<GameObject>&);
 	static List<GameObject>* GetGlobalGameObjectList();
 
 private:
 	List<Component>* components;
-	static List<GameObject>* globalGameObjectList;
+	static List<GameObject> globalGameObjectList;
 };
 
 template<class T>

@@ -1,20 +1,21 @@
 #include "Component.h"
 #include "GameObject.h"
+#include "MainGameLoopVariables.h"
 #include<iostream>
 
-List<GameObject>*GameObject::globalGameObjectList;
+List<GameObject>GameObject::globalGameObjectList = List<GameObject>();
 
 GameObject::GameObject()
 {
 	position = new Point2D();
 	components = new List<Component>();
-	globalGameObjectList->Add(this);
+	globalGameObjectList.Add(this);
 }
 
 GameObject::~GameObject()
 {
 	components->RemoveAll();
-	globalGameObjectList->Remove(this);
+	globalGameObjectList.Remove(this);
 	
 }
 
@@ -38,12 +39,12 @@ void GameObject::RemoveAllComponents()
 	components->RemoveAll();
 }
 
-void GameObject::SetGlobalGameObjectList(List<GameObject>* gameObjectList)
-{
-	globalGameObjectList = gameObjectList;
-}
+//void GameObject::SetGlobalGameObjectList(List<GameObject>& gameObjects)
+//{
+//	 gameObjects = globalGameObjectList;
+//}
 
 List<GameObject>* GameObject::GetGlobalGameObjectList()
 {
-	return globalGameObjectList;
+	return &globalGameObjectList;
 }

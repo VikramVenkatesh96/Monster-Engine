@@ -7,12 +7,15 @@
 
 GDIPlusManager gdipManager;
 
-WinApp::WinApp()
-	:win(800, 600, "MEngine")
+WinApp::WinApp(unsigned int width, unsigned int height, std::string appName)
+	:width(width),
+	 height(height),
+	 appName(appName),
+	win(width, height, appName.c_str())
 {
 	//Fill in drawables lists
-	drawables.push_back(std::make_unique<Sheet>(win.Gfx(), L"Images\\SpaceOptimized.png", 12.0f, 16.0f, 0.0f, 0.01f));
-	drawables.push_back(std::make_unique<Sheet>(win.Gfx(), L"Images\\Ring.png", 0.75f, 0.75f, 1.5f, -1.0f));
+	/*drawables.push_back(std::make_unique<Sheet>(win.Gfx(), L"Images\\SpaceOptimized.png", 12.0f, 16.0f, 0.0f, 0.01f));
+	drawables.push_back(std::make_unique<Sheet>(win.Gfx(), L"Images\\Ring.png", 0.75f, 0.75f, 1.5f, -1.0f));*/
 
 	win.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 1000.0f));
 }
@@ -37,22 +40,26 @@ WinApp::~WinApp()
 
 void WinApp::UpdateFrame()
 {
-	const float dt = timer.Mark();
-	win.Gfx().BeginFrame(0.0f, 0.0f, 0.0f);
-	win.Gfx().SetCamera(camera.GetMatrix());
-
-	for (auto& d : drawables)
-	{
-		d->Update(dt);
-		d->Draw(win.Gfx());
-	}
-
-
-	if (show_demo_window)
-	{
-		camera.ControlWindow();
-	}
-
-
-	win.Gfx().EndFrame();
 }
+//void WinApp::UpdateFrame()
+//{
+//	//Sample Update Frame
+//	const float dt = timer.Mark();
+//	win.Gfx().BeginFrame(0.0f, 0.0f, 0.0f);
+//	win.Gfx().SetCamera(camera.GetMatrix());
+//
+//	for (auto& d : drawables)
+//	{
+//		d->Update(dt);
+//		d->Draw(win.Gfx());
+//	}
+//
+//
+//	if (show_demo_window)
+//	{
+//		camera.ControlWindow();
+//	}
+//
+//
+//	win.Gfx().EndFrame();
+//}

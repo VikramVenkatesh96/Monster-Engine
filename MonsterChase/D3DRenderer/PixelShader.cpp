@@ -2,10 +2,10 @@
 #include "StringUtils.h"
 #include <typeinfo>
 
-PixelShader::PixelShader(Graphics & gfx, const std::string& path)
+PixelShader::PixelShader(Graphics & gfx, const std::wstring& path)
 	:path(path)
 {
-	D3DReadFileToBlob(ToWide(path).c_str(), &pByteCodeBlob);
+	D3DReadFileToBlob(path.c_str(), &pByteCodeBlob);
 	GetDevice(gfx)->CreatePixelShader(pByteCodeBlob->GetBufferPointer(), pByteCodeBlob->GetBufferSize(), nullptr, &pPixelShader);
 }
 

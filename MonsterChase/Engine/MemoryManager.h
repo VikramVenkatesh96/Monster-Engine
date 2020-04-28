@@ -85,8 +85,8 @@ private:
 	static void* FindFirstFit(size_t, unsigned int);
 #pragma endregion
 };
-
-void* operator new(size_t);
-void operator delete(void*);
-void* operator new[](size_t);
-void operator delete[](void*);
+//
+//void* operator new(size_t);
+//void operator delete(void*);
+//void* operator new[](size_t);
+//void operator delete[](void*);

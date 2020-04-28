@@ -434,27 +434,27 @@ void* MemoryManager::FindFirstFit(size_t sizeInBytes, unsigned int alignment) {
 #pragma endregion
 
 #pragma region Global Operator Overloads
-void* operator new(size_t i_size)
-{
-	void* returnPtr = MemoryManager::Malloc(i_size);
-	return returnPtr;
-}
-
-void operator delete(void* i_ptr)
-{
-	MemoryManager::MFree(i_ptr);
-}
-
-void* operator new[](size_t i_size)
-{
-	void* returnPtr = MemoryManager::Malloc(i_size);
-	return returnPtr;
-}
-
-void operator delete [](void* i_ptr)
-{
-	MemoryManager::MFree(i_ptr);
-}
+//void* operator new(size_t i_size)
+//{
+//	void* returnPtr = MemoryManager::Malloc(i_size);
+//	return returnPtr;
+//}
+//
+//void operator delete(void* i_ptr)
+//{
+//	MemoryManager::MFree(i_ptr);
+//}
+//
+//void* operator new[](size_t i_size)
+//{
+//	void* returnPtr = MemoryManager::Malloc(i_size);
+//	return returnPtr;
+//}
+//
+//void operator delete [](void* i_ptr)
+//{
+//	MemoryManager::MFree(i_ptr);
+//}
 #pragma endregion
 
 

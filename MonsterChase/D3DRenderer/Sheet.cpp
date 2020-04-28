@@ -5,12 +5,14 @@
 #include "BindableBase.h"
 #include "Rect.h"
 
-Sheet::Sheet(Graphics & gfx, std::wstring fileName, float xScale, float yScale, float yVel, float dRoll)
+Sheet::Sheet(Graphics & gfx, std::wstring fileName, float x, float y, float xScale, float yScale, float xVel, float yVel, float dRoll)
 	:fileName(fileName),
 	xScale(xScale),
 	yScale(yScale),
 	r(0),
-	y(0),
+	x(x),
+	y(y),
+	xVel(xVel),
 	yVel(yVel),
 	dRoll(dRoll),
 	dPitch(0),
@@ -47,12 +49,15 @@ Sheet::Sheet(Graphics & gfx, std::wstring fileName, float xScale, float yScale, 
 
 		//Alpha blending code. Doing Alpha Testing in PixelShader instead
 		//AddStaticBind(std::make_unique<AlphaBlender>(gfx, true));
-
-		auto pVS = std::make_unique<VertexShader>(gfx, "TextureVS.cso");
+		std::wstring shaderPath = PROJECT_DIR;
+		shaderPath.append(L"TextureVS.cso");
+		auto pVS = std::make_unique<VertexShader>(gfx, shaderPath);
 		auto pBC = pVS->GetBytecode();
 		AddStaticBind(std::move(pVS));
 
-		AddStaticBind(std::make_unique<PixelShader>(gfx, "TexturePS.cso"));
+		shaderPath = PROJECT_DIR;
+		shaderPath.append(L"TexturePS.cso");
+		AddStaticBind(std::make_unique<PixelShader>(gfx, shaderPath));
 
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
 
@@ -78,7 +83,8 @@ Sheet::Sheet(Graphics & gfx, std::wstring fileName, float xScale, float yScale, 
 
 void Sheet::Update(float dt)
 {
-	y -= yVel * dt;
+	x += xVel * dt;
+	y += yVel * dt;
 	roll += dRoll * dt;
 	pitch += dPitch * dt;
 	yaw += dYaw * dt;
@@ -90,7 +96,7 @@ void Sheet::Update(float dt)
 DirectX::XMMATRIX Sheet::GetTransformXM() const
 {
 	return DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) *
-		DirectX::XMMatrixTranslation(0.0f, y, 0.0f)*
+		DirectX::XMMatrixTranslation(x, y, 0.0f)*
 		DirectX::XMMatrixRotationRollPitchYaw(theta, phi, chi)*
 		DirectX::XMMatrixScaling(xScale, yScale, 1.0f);
 }

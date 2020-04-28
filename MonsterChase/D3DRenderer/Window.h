@@ -12,6 +12,10 @@ public:
 	~Window();
 	static std::optional<int> ProcessMessages();
 	Graphics& Gfx();
+	inline Graphics* p_Gfx()
+	{
+		return pGfx.get();
+	}
 
 private:
 	class WindowClass

@@ -32,9 +32,9 @@ Surface::Surface(const std::wstring &filename)
 
 	const BOOL isAlpha = gdi::IsAlphaPixelFormat(bitmap.GetPixelFormat());
 
-	for (int y = 0; y < height; ++y)
+	for (unsigned int y = 0; y < height; ++y)
 	{
-		for (int x = 0; x < width; ++x)
+		for (unsigned int x = 0; x < width; ++x)
 		{
 
 			gdi::Color pixelColor;
