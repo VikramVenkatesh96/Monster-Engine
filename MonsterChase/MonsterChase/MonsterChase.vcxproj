@@ -180,10 +180,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="PlayerMovement.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterChase.cpp" />
+    <ClCompile Include="PlayerMovement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">

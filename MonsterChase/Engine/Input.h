@@ -6,6 +6,7 @@ class Input:public Component
 {
 public:
 	Input(GameObject *);
+	~Input();
 	virtual void Start() override;
 	virtual void Update() override;
 	Point2D* GetAxis();

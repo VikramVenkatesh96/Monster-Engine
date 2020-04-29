@@ -23,6 +23,7 @@ public:
 	List<Component>* GetAllComponents();
 	void RemoveComponent(unsigned int);
 	void RemoveAllComponents();
+	void Inspector();
 	//static void SetGlobalGameObjectList(List<GameObject>&);
 	static List<GameObject>* GetGlobalGameObjectList();
 

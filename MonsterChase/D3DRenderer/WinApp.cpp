@@ -41,25 +41,4 @@ WinApp::~WinApp()
 void WinApp::UpdateFrame()
 {
 }
-//void WinApp::UpdateFrame()
-//{
-//	//Sample Update Frame
-//	const float dt = timer.Mark();
-//	win.Gfx().BeginFrame(0.0f, 0.0f, 0.0f);
-//	win.Gfx().SetCamera(camera.GetMatrix());
-//
-//	for (auto& d : drawables)
-//	{
-//		d->Update(dt);
-//		d->Draw(win.Gfx());
-//	}
-//
-//
-//	if (show_demo_window)
-//	{
-//		camera.ControlWindow();
-//	}
-//
-//
-//	win.Gfx().EndFrame();
-//}
+

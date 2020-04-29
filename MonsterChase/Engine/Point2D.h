@@ -8,8 +8,14 @@ public:
 	Point2D();
 	Point2D(float,float);
 	float Length();
+	float SquareLength();
 	Point2D* Normalize();
-	void PrintPoint();
+	inline void MakeZero()
+	{
+		x = 0.0f;
+		y = 0.0f;
+	}
+	
 	
 	Point2D operator + (Point2D const &obj) {
 		Point2D res;
@@ -24,6 +30,8 @@ public:
 		res.y = y - obj.y;
 		return res;
 	}
+	
+	//Left multiply witch constant pending
 
 	Point2D operator * (float const &c) {
 		Point2D res;

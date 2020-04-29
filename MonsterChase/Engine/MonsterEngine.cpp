@@ -1,8 +1,10 @@
 #include "MonsterEngine.h"
 #include "GameObject.h"
 #include "Component.h"
+#include "PhysicsSystem.h"
 #include "MainGameLoopVariables.h"
 
+Keyboard* keyboard = nullptr;
 Graphics* pGfx = nullptr;
 std::vector<std::unique_ptr<Drawable>>* gDrawables = nullptr;
 
@@ -12,6 +14,10 @@ MonsterEngine::MonsterEngine(unsigned int width, unsigned int height, std::strin
 	//Set Graphics and drawables for renderer updates
 	pGfx = GetGfxPtr();
 	gDrawables = &drawables;
+
+	//Set Keyboard for IO
+	keyboard = GetKeyboard();
+
 	//Run Start Loop
 	List<GameObject>* gameObjects = GameObject::GetGlobalGameObjectList();
 	//Get the start node of the list all game objects
@@ -36,6 +42,9 @@ void MonsterEngine::UpdateFrame()
 	GetGfxPtr()->BeginFrame(0,0,0.5f);
 	GetGfxPtr()->SetCamera(camera.GetMatrix());
 
+	//Run Physics
+	PhysicsSystem::Run(dt);
+
 	List<GameObject>* gameObjects = GameObject::GetGlobalGameObjectList();
 	//Run the Update Loop for each Gameobject and its Component
 	ListNode<GameObject>* gameObjectIterator = gameObjects->start;
@@ -48,6 +57,7 @@ void MonsterEngine::UpdateFrame()
 			componentIterator->value->Update();
 			componentIterator = componentIterator->next;
 		}
+		gameObjectIterator->value->Inspector();
 		gameObjectIterator = gameObjectIterator->next;
 	}
 

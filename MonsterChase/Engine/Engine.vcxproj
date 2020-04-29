@@ -31,8 +31,9 @@
     <ClInclude Include="MainGameLoopVariables.h" />
     <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="MonsterEngine.h" />
-    <ClInclude Include="PlayerCharacter.h" />
+    <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="Point2D.h" />
+    <ClInclude Include="RigidBody2D.h" />
     <ClInclude Include="Script.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteRenderer.h" />
@@ -48,8 +49,9 @@
     <ClCompile Include="IO.cpp" />
     <ClCompile Include="MemoryManager.cpp" />
     <ClCompile Include="MonsterEngine.cpp" />
-    <ClCompile Include="PlayerCharacter.cpp" />
+    <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="Point2D.cpp" />
+    <ClCompile Include="RigidBody2D.cpp" />
     <ClCompile Include="Script.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />

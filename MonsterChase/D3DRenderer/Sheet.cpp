@@ -5,7 +5,7 @@
 #include "BindableBase.h"
 #include "Rect.h"
 
-Sheet::Sheet(Graphics & gfx, std::wstring fileName, float x, float y, float xScale, float yScale, float xVel, float yVel, float dRoll)
+Sheet::Sheet(Graphics & gfx, std::wstring fileName, float x, float y, float xScale, float yScale, float dRoll)
 	:fileName(fileName),
 	xScale(xScale),
 	yScale(yScale),
@@ -83,14 +83,12 @@ Sheet::Sheet(Graphics & gfx, std::wstring fileName, float x, float y, float xSca
 
 void Sheet::Update(float dt)
 {
-	x += xVel * dt;
-	y += yVel * dt;
-	roll += dRoll * dt;
-	pitch += dPitch * dt;
-	yaw += dYaw * dt;
-	theta += dTheta * dt;
-	phi += dPhi * dt;
-	chi += dChi * dt;
+}
+
+void Sheet::SetPosition(float xPos, float yPos)
+{
+	x = xPos;
+	y = yPos;
 }
 
 DirectX::XMMATRIX Sheet::GetTransformXM() const
@@ -100,3 +98,5 @@ DirectX::XMMATRIX Sheet::GetTransformXM() const
 		DirectX::XMMatrixRotationRollPitchYaw(theta, phi, chi)*
 		DirectX::XMMatrixScaling(xScale, yScale, 1.0f);
 }
+
+

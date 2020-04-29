@@ -1,9 +1,12 @@
 #pragma once
 #include "Drawable.h"
 #include "GameObject.h"
+#include "Keyboard.h"
 
 static bool endUpdate = false;
-//static List<GameObject> gameObjects;
+#pragma region IO
+extern Keyboard * keyboard;
+#pragma endregion
 
 #pragma region Rendering Variables
 extern Graphics* pGfx;

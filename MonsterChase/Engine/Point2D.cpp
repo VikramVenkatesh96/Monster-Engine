@@ -1,5 +1,5 @@
 #include "Point2D.h"
-#include <iostream>
+#include <math.h>
 
 Point2D::Point2D() {
 	this->x = 0;
@@ -15,17 +15,22 @@ Point2D::Point2D(float x ,float y)
 
 float Point2D::Length()
 {
-	return sqrt(x*x + y*y);
+	return (float)sqrt(x*x + y*y);
+}
+
+float Point2D::SquareLength()
+{
+	return x * x + y * y;
 }
 
 Point2D* Point2D::Normalize()
 {
 	Point2D* normalized = new Point2D();
-	normalized->x = x / Length();
-	normalized->y = y / Length();
+	if (Length() != 0)
+	{
+		normalized->x = x / Length();
+		normalized->y = y / Length();
+	}
 	return normalized;
 }
 
-void Point2D::PrintPoint() {
-	std::cout << "(" << x << "," << y << ")";
-}

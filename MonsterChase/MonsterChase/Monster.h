@@ -14,7 +14,7 @@ public:
 	void Move(Point2D*);
 
 private:
-	void ScriptStart();
-	void ScriptUpdate();
+	/*void ScriptStart();
+	void ScriptUpdate();*/
 };
 

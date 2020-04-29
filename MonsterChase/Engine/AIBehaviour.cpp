@@ -1,7 +1,6 @@
 #include "AIBehaviour.h"
 #include "GameObject.h"
 #include "GamePlayStatics.h"
-#include "PlayerCharacter.h"
 #include <cmath>
 
 AIBehaviour::AIBehaviour(GameObject* root,Behaviour type)
@@ -23,31 +22,7 @@ void AIBehaviour::Update()
 Point2D* AIBehaviour::GetAIMovement()
 {	
 	Point2D* dirToMove;
-
-	if (behaviourType == Behaviour::FollowPlayer) {
-		Point2D* playerPos = GamePlayStatics::FindObjectOfClass<PlayerCharacter>()->position;
-		dirToMove = (*playerPos - *gameObject->position).Normalize();
-		if (dirToMove->x > 0)
-		{
-			dirToMove->x = ceil(dirToMove->x);
-		}
-		else
-		{
-			dirToMove->x = floor(dirToMove->x);
-		}
-		
-		if (dirToMove->y > 0)
-		{
-			dirToMove->y = ceil(dirToMove->y);
-		}
-		else
-		{
-			dirToMove->y = floor(dirToMove->y);
-		}
-
-		return dirToMove;
-	}
-	else if (behaviourType == Behaviour::RandomMotion)
+	if (behaviourType == Behaviour::RandomMotion)
 	{
 		dirToMove = new Point2D();
 		//Randomize X

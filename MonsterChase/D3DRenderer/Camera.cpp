@@ -21,7 +21,6 @@ void Camera::ControlWindow()
 	{
 		ImGui::SliderFloat("Z-Distance", &r, 0.0f, 40.0f, "%.1f");
 		ImGui::SliderAngle("Yaw", &yaw, -180.0f, 180.0f, "%.1f");
-	
 
 		if (ImGui::Button("Reset"))
 		{

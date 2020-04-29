@@ -42,6 +42,10 @@ public:
 		return timer.Mark();
 	}
 	
+	inline Keyboard* GetKeyboard()
+	{
+		return &win.kbd;
+	}
 protected:
 	virtual void UpdateFrame();
 

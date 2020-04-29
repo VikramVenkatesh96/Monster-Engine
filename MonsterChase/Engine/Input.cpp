@@ -1,12 +1,16 @@
 #include "Input.h"
 #include "GameObject.h"
-#include <conio.h>
-#include <iostream>
+#include "Keyboard.h"
+#include "MainGameLoopVariables.h"
 
 Input::Input(GameObject * root)
 {
 	gameObject = root;
 	inputAxis = new Point2D();
+}
+Input::~Input()
+{
+	delete inputAxis;
 }
 void Input::Start()
 {
@@ -17,30 +21,23 @@ Point2D* Input::GetAxis()
 }
 void Input::Update()
 {
-	char input = _getch();
-	if (input == 'w')
+	inputAxis->y = 0;
+	inputAxis->x = 0;
+
+	if (keyboard->IsKeyPressed(0x57))
 	{
 		inputAxis->y = 1;
-		inputAxis->x = 0;
 	}
-	else if (input == 'a')
+	if (keyboard->IsKeyPressed(0x41))
 	{
-		inputAxis->y = 0;
 		inputAxis->x = -1;
 	}
-	else if (input == 's')
+	if (keyboard->IsKeyPressed(0x53))
 	{
 		inputAxis->y = -1;
-		inputAxis->x = 0;
 	}
-	else if (input == 'd')
+	if (keyboard->IsKeyPressed(0x44))
 	{
-		inputAxis->y = 0;
 		inputAxis->x = 1;
-	}
-	else
-	{
-		inputAxis->y = 0;
-		inputAxis->x = 0;
 	}
 }
