@@ -19,14 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\examples\imgui_impl_dx11.h" />
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\examples\imgui_impl_win32.h" />
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imconfig.h" />
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui.h" />
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui_internal.h" />
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imstb_rectpack.h" />
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imstb_textedit.h" />
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imstb_truetype.h" />
     <ClInclude Include="AlphaBlender.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
@@ -38,6 +30,11 @@
     <ClInclude Include="GDIPlusManager.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="IMGUIManager.h" />
+    <ClInclude Include="IMGUI\examples\imgui_impl_dx11.h" />
+    <ClInclude Include="IMGUI\examples\imgui_impl_win32.h" />
+    <ClInclude Include="IMGUI\imconfig.h" />
+    <ClInclude Include="IMGUI\imgui.h" />
+    <ClInclude Include="IMGUI\imgui_internal.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="IndexedTriangleList.h" />
     <ClInclude Include="InputLayout.h" />
@@ -59,12 +56,6 @@
     <ClInclude Include="WinHeaderOptimizer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\examples\imgui_impl_dx11.cpp" />
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\examples\imgui_impl_win32.cpp" />
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui.cpp" />
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui_demo.cpp" />
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui_draw.cpp" />
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui_widgets.cpp" />
     <ClCompile Include="AlphaBlender.cpp" />
     <ClCompile Include="Bindable.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -72,6 +63,12 @@
     <ClCompile Include="GDIPlusManager.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="IMGUIManager.cpp" />
+    <ClCompile Include="IMGUI\examples\imgui_impl_dx11.cpp" />
+    <ClCompile Include="IMGUI\examples\imgui_impl_win32.cpp" />
+    <ClCompile Include="IMGUI\imgui.cpp" />
+    <ClCompile Include="IMGUI\imgui_demo.cpp" />
+    <ClCompile Include="IMGUI\imgui_draw.cpp" />
+    <ClCompile Include="IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InputLayout.cpp" />
     <ClCompile Include="Keyboard.cpp" />

@@ -4,8 +4,8 @@
 
 std::vector<RigidBody2D *> PhysicsSystem::rigidBodies;
 //Coefficient declarations 
-const float PhysicsSystem::gravity = -1.0f;
-const float PhysicsSystem::dragCoefficient = 12.5f;
+const float PhysicsSystem::gravity = -2.0f;
+const float PhysicsSystem::dragCoefficient = 2.0f;
 
 PhysicsSystem::PhysicsSystem()
 {

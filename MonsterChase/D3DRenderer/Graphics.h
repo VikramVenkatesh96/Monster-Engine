@@ -26,7 +26,6 @@ public:
 	void DrawTriangle(float, float, float, float);
 	void DrawIndexed(UINT count);
 
-
 private:
 	bool imguiEnabled = true;
 	DirectX::XMMATRIX projection;

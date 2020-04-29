@@ -24,6 +24,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="DataStructures.h" />
+    <ClInclude Include="FloatHelpers.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GamePlayStatics.h" />
     <ClInclude Include="Input.h" />
@@ -44,6 +45,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="DataStructures.cpp" />
+    <ClCompile Include="FloatHelpers.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="IO.cpp" />

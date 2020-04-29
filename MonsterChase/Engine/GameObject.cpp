@@ -44,8 +44,8 @@ void GameObject::Inspector()
 	if (ImGui::Begin("Inspector"))
 	{
 		ImGui::Text("Position:");
-		ImGui::Text("X: %f", position->x);
-		ImGui::Text("Y: %f", position->y);
+		ImGui::Text("X: %.2f", position->x);
+		ImGui::Text("Y: %.2f", position->y);
 	}
 	ImGui::End();
 

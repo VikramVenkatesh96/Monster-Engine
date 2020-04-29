@@ -126,28 +126,19 @@
     <ClInclude Include="Keyboard.h">
       <Filter>IO</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imconfig.h">
+    <ClInclude Include="IMGUI\imconfig.h">
       <Filter>IMGUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui.h">
+    <ClInclude Include="IMGUI\imgui.h">
       <Filter>IMGUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui_internal.h">
+    <ClInclude Include="IMGUI\imgui_internal.h">
       <Filter>IMGUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imstb_rectpack.h">
+    <ClInclude Include="IMGUI\examples\imgui_impl_dx11.h">
       <Filter>IMGUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imstb_textedit.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imstb_truetype.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\examples\imgui_impl_win32.h">
-      <Filter>IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\examples\imgui_impl_dx11.h">
+    <ClInclude Include="IMGUI\examples\imgui_impl_win32.h">
       <Filter>IMGUI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -221,22 +212,22 @@
     <ClCompile Include="Keyboard.cpp">
       <Filter>IO</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui.cpp">
+    <ClCompile Include="IMGUI\imgui.cpp">
       <Filter>IMGUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui_demo.cpp">
+    <ClCompile Include="IMGUI\imgui_demo.cpp">
       <Filter>IMGUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui_draw.cpp">
+    <ClCompile Include="IMGUI\imgui_draw.cpp">
       <Filter>IMGUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\imgui_widgets.cpp">
+    <ClCompile Include="IMGUI\imgui_widgets.cpp">
       <Filter>IMGUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\examples\imgui_impl_win32.cpp">
+    <ClCompile Include="IMGUI\examples\imgui_impl_dx11.cpp">
       <Filter>IMGUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Direct3DRenderingEngine\D3DRenderer\ImGUI\examples\imgui_impl_dx11.cpp">
+    <ClCompile Include="IMGUI\examples\imgui_impl_win32.cpp">
       <Filter>IMGUI</Filter>
     </ClCompile>
   </ItemGroup>
