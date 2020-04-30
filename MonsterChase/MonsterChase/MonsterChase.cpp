@@ -1,28 +1,12 @@
-//Game Headers
-//#include "Monster.h"
-
 //Engine Headers
-//#include "MemoryManager.h"
-#include "FloatHelpers.h"
+#include "MainGameLoopVariables.h"
 #include "MonsterEngine.h"
 #include "Sprite.h"
-//#include "Point2D.h"
-//#include "Component.h"
-//#include "GameObject.h"
-//#include "PlayerCharacter.h"
-#include "MainGameLoopVariables.h"
+
 
 //STL Headers
 #include <assert.h>
 
-//Macros
-#define MAXSIZE 64
-#define GRIDX 256
-#define GRIDY 256
-#define PLAYERSPEED 1
-//End Macros
-
-bool FPUnitTest();
 
 int CALLBACK WinMain(
 	HINSTANCE,
@@ -31,56 +15,14 @@ int CALLBACK WinMain(
 	int 
 )
 {
-	assert(FPUnitTest());
 
-	//Add all gameplay elements
+	////Add all gameplay elements
 	Sprite* sprite;
 	sprite = new Sprite(L"Images\\2ab.png", 0.0f, 0.0f);
 	//Run the app
 	return MonsterEngine(800, 600, "MEngine").Run();
 }
 
-bool FPUnitTest()
-{
-	//Checking for small comparisons
-	float x = 0.15f;
-	float y = 0.0f;
-	for (unsigned int i = 1; i <= 15; ++i)
-	{
-		y += 0.01f;
-	}
-	
-	if (!FloatHelpers::IsEqual(x, y))
-	{
-		return false;
-	}
-	//Checking for large comparisons
-	volatile float z = 123456789.6969f;
-	x *= z;
-	y *= z;
-	if (!FloatHelpers::IsEqual(x, y))
-	{
-		return false;
-	}
-
-	//Checking for zero comparison
-	z -= 123456789.666f;
-	if(!FloatHelpers::IsZero(z))
-	{
-		return false;
-	}
-
-	//Checking for NaN by 0/0
-	x -= x;
-	x /= z;
-	if (!FloatHelpers::IsNaN(x))
-	{
-		return false;
-	}
-	
-	//End test and passed!
-	return true;
-}
 
 //int main() {
 //	//Reserve memory from system for game heap

@@ -1,13 +1,13 @@
 #pragma once
 #include "DataStructures.h"
 #include "Point2D.h"
+#include <vector>
+
 class Component;
 
 class GameObject
 {
-	
 public:
-	
 	Point2D* position;
 	GameObject();
 	virtual ~GameObject();
@@ -20,42 +20,34 @@ public:
 	template <class T>
 	T* GetComponent();
 
-	List<Component>* GetAllComponents();
+	std::vector<Component*>* GetAllComponents();
 	void RemoveComponent(unsigned int);
 	void RemoveAllComponents();
 	void Inspector();
 	//static void SetGlobalGameObjectList(List<GameObject>&);
-	static List<GameObject>* GetGlobalGameObjectList();
+	static std::vector<GameObject*>* GetGlobalGameObjectList();
 
 private:
-	List<Component>* components;
-	static List<GameObject> globalGameObjectList;
+	std::vector<Component*> components;
+	static std::vector<GameObject*> gameObjects;
+
 };
 
 template<class T>
 void GameObject::AddComponent(T* component)
 {
-	components->Add(component);
+	components.push_back(component);
 }
 
 template<class T>
 T* GameObject::GetComponent()
 {
-	ListNode<Component>* iterator = components->start;
-	while (iterator != nullptr)
+	for (unsigned int i = 0; i < components.size(); ++i)
 	{
-		if (dynamic_cast<T*>(iterator->value) != nullptr) 
+		if (dynamic_cast<T*>(components.at(i)) != nullptr)
 		{
-			break;
+			return dynamic_cast<T*>(components.at(i));
 		}
-		iterator = iterator->next;
 	}
-	if (iterator == nullptr) 
-	{
-		return nullptr;
-	}
-	else 
-	{
-		return dynamic_cast<T*>(iterator->value);
-	}	
+	return nullptr;
 }

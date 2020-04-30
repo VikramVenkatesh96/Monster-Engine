@@ -7,6 +7,7 @@ SpriteRenderer::SpriteRenderer(GameObject * root, std::wstring i_fileName)
 {
 	gameObject = root;
 	fileName = i_fileName;
+	
 }
 
 void SpriteRenderer::Start()

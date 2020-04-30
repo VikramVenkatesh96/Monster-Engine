@@ -11,6 +11,11 @@ protected:
 	void UpdateFrame() override;
 
 private:
+	void StartLoop();
+	void UpdateLoop();
+
+private:
 	Camera camera;
+	//std::vector<Sprite*> sprites;
 };
 

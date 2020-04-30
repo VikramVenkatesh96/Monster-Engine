@@ -72,6 +72,9 @@
     <ClInclude Include="FloatHelpers.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Pointers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Point2D.cpp">
@@ -84,9 +87,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DataStructures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">

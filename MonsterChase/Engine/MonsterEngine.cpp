@@ -3,6 +3,7 @@
 #include "Component.h"
 #include "PhysicsSystem.h"
 #include "MainGameLoopVariables.h"
+#include "Sprite.h"
 
 Keyboard* keyboard = nullptr;
 Graphics* pGfx = nullptr;
@@ -19,20 +20,7 @@ MonsterEngine::MonsterEngine(unsigned int width, unsigned int height, std::strin
 	keyboard = GetKeyboard();
 
 	//Run Start Loop
-	List<GameObject>* gameObjects = GameObject::GetGlobalGameObjectList();
-	//Get the start node of the list all game objects
-	ListNode<GameObject>* gameObjectIterator = gameObjects->start;
-	while (gameObjectIterator != nullptr)
-	{
-		//Get the start node of all components in the gameObject
-		ListNode<Component>* componentIterator = gameObjectIterator->value->GetAllComponents()->start;
-		while (componentIterator != nullptr)
-		{
-			componentIterator->value->Start();
-			componentIterator = componentIterator->next;
-		}
-		gameObjectIterator = gameObjectIterator->next;
-	}
+	StartLoop();
 }
 
 void MonsterEngine::UpdateFrame()
@@ -42,24 +30,16 @@ void MonsterEngine::UpdateFrame()
 	GetGfxPtr()->BeginFrame(0,0,0.5f);
 	GetGfxPtr()->SetCamera(camera.GetMatrix());
 
+	/*if (keyboard->IsKeyPressed(VK_SPACE))
+	{
+		 sprites.push_back(new Sprite(L"Images\\2ab.png", 0.0f, 0.0f));
+	}
+	*/
 	//Run Physics
 	PhysicsSystem::Run(dt);
 
-	List<GameObject>* gameObjects = GameObject::GetGlobalGameObjectList();
-	//Run the Update Loop for each Gameobject and its Component
-	ListNode<GameObject>* gameObjectIterator = gameObjects->start;
-	while (gameObjectIterator != nullptr)
-	{
-		//Get the start node of all components in the gameObject
-		ListNode<Component>* componentIterator = gameObjectIterator->value->GetAllComponents()->start;
-		while (componentIterator != nullptr)
-		{
-			componentIterator->value->Update();
-			componentIterator = componentIterator->next;
-		}
-		gameObjectIterator->value->Inspector();
-		gameObjectIterator = gameObjectIterator->next;
-	}
+	//Run Update Loop for components
+	UpdateLoop();
 
 	//Draw all drawables
 	for (auto& d : drawables)
@@ -73,3 +53,34 @@ void MonsterEngine::UpdateFrame()
 
 	GetGfxPtr()->EndFrame();
 }
+
+void MonsterEngine::StartLoop()
+{
+	std::vector<GameObject*>* gameObjects = GameObject::GetGlobalGameObjectList();
+	for (unsigned int i = 0; i < gameObjects->size(); ++i)
+	{
+		GameObject* gameObject = gameObjects->at(i);
+		std::vector<Component*>* components = gameObject->GetAllComponents();
+		for (unsigned int j = 0; j < components->size(); ++j)
+		{
+			components->at(j)->Start();
+		}
+	}
+}
+
+void MonsterEngine::UpdateLoop()
+{
+	std::vector<GameObject*>* gameObjects = GameObject::GetGlobalGameObjectList();
+	for (unsigned int i = 0; i < gameObjects->size(); ++i)
+	{
+		GameObject* gameObject = gameObjects->at(i);
+		std::vector<Component*>* components = gameObject->GetAllComponents();
+		for (unsigned int j = 0; j < components->size(); ++j)
+		{
+			components->at(j)->Update();
+		}
+		gameObject->Inspector();
+	}
+}
+
+

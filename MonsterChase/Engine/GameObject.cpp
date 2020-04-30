@@ -3,19 +3,18 @@
 #include "MainGameLoopVariables.h"
 #include "IMGUI/imgui.h"
 
-List<GameObject>GameObject::globalGameObjectList = List<GameObject>();
-
+std::vector<GameObject*> GameObject::gameObjects;
 GameObject::GameObject()
 {
 	position = new Point2D();
-	components = new List<Component>();
-	globalGameObjectList.Add(this);
+	gameObjects.push_back(this);
 }
 
 GameObject::~GameObject()
 {
-	components->RemoveAll();
-	globalGameObjectList.Remove(this);
+	RemoveAllComponents();
+	//Delete this from gameObjects
+	gameObjects.erase(std::remove(gameObjects.begin(), gameObjects.end(),this), gameObjects.end());
 
 }
 
@@ -24,19 +23,19 @@ void GameObject::Translate(Point2D toPosition) {
 	*this->position = toPosition;
 }
 
-List<Component>* GameObject::GetAllComponents()
+std::vector<Component*>* GameObject::GetAllComponents()
 {
-	return components;
+	return &components;
 }
 
 void GameObject::RemoveComponent(unsigned int index)
 {
-	components->Remove(index);
+	components.erase(components.begin() + index);
 }
 
 void GameObject::RemoveAllComponents()
 {
-	components->RemoveAll();
+	components.clear();
 }
 
 void GameObject::Inspector()
@@ -56,7 +55,7 @@ void GameObject::Inspector()
 //	 gameObjects = globalGameObjectList;
 //}
 
-List<GameObject>* GameObject::GetGlobalGameObjectList()
+std::vector<GameObject*>* GameObject::GetGlobalGameObjectList()
 {
-	return &globalGameObjectList;
+	return &gameObjects;
 }

@@ -34,6 +34,7 @@
     <ClInclude Include="MonsterEngine.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="Point2D.h" />
+    <ClInclude Include="Pointers.h" />
     <ClInclude Include="RigidBody2D.h" />
     <ClInclude Include="Script.h" />
     <ClInclude Include="Sprite.h" />
@@ -44,7 +45,6 @@
     <ClCompile Include="BitArray.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Controller.cpp" />
-    <ClCompile Include="DataStructures.cpp" />
     <ClCompile Include="FloatHelpers.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
