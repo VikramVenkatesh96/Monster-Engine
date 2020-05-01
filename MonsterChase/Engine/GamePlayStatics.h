@@ -11,21 +11,13 @@ public:
 template<class T>
 T* GamePlayStatics::FindObjectOfClass()
 {
-	ListNode<GameObject>* iterator = GameObject::GetGlobalGameObjectList()->start;
-	while (iterator != nullptr)
+	std::vector<GameObject*>* gameObjects = GameObject::GetGlobalGameObjectList();
+	for (unsigned int i = 0; i < gameObjects->size(); ++i)
 	{
-		if (dynamic_cast<T*>(iterator->value) != nullptr)
+		if (dynamic_cast<T*>(gameObjects->at(i)) != nullptr)
 		{
-			break;
+			return dynamic_cast<T*>(gameObjects->at(i));
 		}
-		iterator = iterator->next;
 	}
-	if (iterator == nullptr)
-	{
-		return nullptr;
-	}
-	else
-	{
-		return dynamic_cast<T*>(iterator->value);
-	}
+	return nullptr;
 }

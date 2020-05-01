@@ -1,11 +1,10 @@
 #include "Input.h"
 #include "GameObject.h"
 #include "Keyboard.h"
-#include "MainGameLoopVariables.h"
-
-Input::Input(GameObject * root)
+#include "World.h"
+Input::Input(SmartPtr<GameObject> root):
+	Component(root)
 {
-	gameObject = root;
 	inputAxis = new Point2D();
 }
 Input::~Input()
@@ -24,19 +23,19 @@ void Input::Update()
 	inputAxis->y = 0;
 	inputAxis->x = 0;
 
-	if (keyboard->IsKeyPressed(0x57))
+	if (World::GetKeyboard()->IsKeyPressed(0x57))
 	{
 		inputAxis->y = 1;
 	}
-	if (keyboard->IsKeyPressed(0x41))
+	if (World::GetKeyboard()->IsKeyPressed(0x41))
 	{
 		inputAxis->x = -1;
 	}
-	if (keyboard->IsKeyPressed(0x53))
+	if (World::GetKeyboard()->IsKeyPressed(0x53))
 	{
 		inputAxis->y = -1;
 	}
-	if (keyboard->IsKeyPressed(0x44))
+	if (World::GetKeyboard()->IsKeyPressed(0x44))
 	{
 		inputAxis->x = 1;
 	}

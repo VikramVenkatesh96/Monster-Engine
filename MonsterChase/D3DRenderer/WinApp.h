@@ -3,6 +3,7 @@
 #include "Timer.h"
 #include "IMGUIManager.h"
 #include "Camera.h"
+#include "Sheet.h"
 #include <vector>
 
 class WinApp
@@ -49,8 +50,6 @@ public:
 protected:
 	virtual void UpdateFrame();
 
-protected:
-	std::vector<std::unique_ptr<class Drawable>> drawables;
 private:
 	unsigned int width;
 	unsigned int height;

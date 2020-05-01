@@ -1,21 +1,20 @@
 #include "Component.h"
 #include "GameObject.h"
-#include "MainGameLoopVariables.h"
 #include "IMGUI/imgui.h"
 
-std::vector<GameObject*> GameObject::gameObjects;
 GameObject::GameObject()
 {
 	position = new Point2D();
-	gameObjects.push_back(this);
 }
 
 GameObject::~GameObject()
 {
+	delete position;
 	RemoveAllComponents();
-	//Delete this from gameObjects
-	gameObjects.erase(std::remove(gameObjects.begin(), gameObjects.end(),this), gameObjects.end());
+}
 
+void GameObject::Initialize()
+{
 }
 
 void GameObject::Translate(Point2D toPosition) {
@@ -35,6 +34,10 @@ void GameObject::RemoveComponent(unsigned int index)
 
 void GameObject::RemoveAllComponents()
 {
+	for (unsigned int i = 0; i < components.size(); ++i)
+	{
+		delete components[i];
+	}
 	components.clear();
 }
 
@@ -50,12 +53,3 @@ void GameObject::Inspector()
 
 }
 
-//void GameObject::SetGlobalGameObjectList(List<GameObject>& gameObjects)
-//{
-//	 gameObjects = globalGameObjectList;
-//}
-
-std::vector<GameObject*>* GameObject::GetGlobalGameObjectList()
-{
-	return &gameObjects;
-}

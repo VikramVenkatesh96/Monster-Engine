@@ -1,11 +1,11 @@
 #pragma once
 #include "Component.h"
-#include <functional>
+
 
 class Script :public Component
 {
 public:
-	Script(GameObject*);
+	Script(SmartPtr<GameObject>);
 	//(OLD)
 	//Script(GameObject*, std::function<void()>, std::function<void()>);
 protected:

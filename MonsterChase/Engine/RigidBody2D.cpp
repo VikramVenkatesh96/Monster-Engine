@@ -4,12 +4,12 @@
 #include "Point2D.h"
 
 
-RigidBody2D::RigidBody2D(GameObject* root, float mass, bool enableGravity, bool enableDrag)
-	:mass(mass),
-	 enableGravity(enableGravity),
-	 enableDrag(enableDrag)
+RigidBody2D::RigidBody2D(SmartPtr<GameObject> root, float mass, bool enableGravity, bool enableDrag):
+	Component(root),
+	mass(mass),
+	enableGravity(enableGravity),
+	enableDrag(enableDrag)
 {
-	gameObject = root;
 	velocity = new Point2D(0, 0);
 	netForce = new Point2D(0, 0);
 	PhysicsSystem::AddRigidBody(this);
@@ -51,7 +51,7 @@ Point2D * RigidBody2D::GetVelocity()
 
 Point2D * RigidBody2D::GetPosition()
 {
-	return gameObject->position;
+	return gameObject.Acquire()->position;
 }
 void RigidBody2D::Start()
 {

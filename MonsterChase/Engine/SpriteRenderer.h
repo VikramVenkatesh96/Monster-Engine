@@ -1,18 +1,17 @@
 #pragma once
 #include "Component.h"
+#include "Sheet.h"
 #include <string>
-
-class Sheet;
 
 class SpriteRenderer : public Component
 {
 public:
-	SpriteRenderer(GameObject *, std::wstring fileName);
+	SpriteRenderer(SmartPtr<GameObject>, std::wstring fileName);
 	virtual void Start() override;
 	virtual void Update() override;
 
 private:
 	std::wstring fileName;
-	Sheet* sheet;
+	SmartPtr<Sheet> sheet;
 };
 

@@ -5,7 +5,7 @@ class Point2D;
 class RigidBody2D : public Component
 {
 public:
-	RigidBody2D(GameObject*, float mass, bool enableGravity, bool enableDrag);
+	RigidBody2D(SmartPtr<GameObject>, float mass, bool enableGravity, bool enableDrag);
 	~RigidBody2D();
 	void AddForce(Point2D);
 	Point2D* GetNetForce();

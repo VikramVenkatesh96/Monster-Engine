@@ -1,8 +1,10 @@
 #include "Component.h"
 #include "GameObject.h"
 #include <iostream>
-Component::Component()
+Component::Component(SmartPtr<GameObject> root):
+	gameObject(root)
 {
+
 }
 void Component::Start()
 {

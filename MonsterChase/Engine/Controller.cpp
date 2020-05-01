@@ -5,10 +5,10 @@
 #include "RigidBody2D.h"
 #include <iostream>
 
-Controller::Controller(GameObject * root,ControllerType type, float maxForce)
-	:maxForceMultiplier(maxForce)
+Controller::Controller(SmartPtr<GameObject> root,ControllerType type, float maxForce):
+	Component(root),
+	maxForceMultiplier(maxForce)
 {	
-	gameObject = root;
 	controllerType = type;
 }
 void Controller::Start()
@@ -19,8 +19,8 @@ void Controller::Update()
 {
 	if (controllerType == ControllerType::Player)
 	{
-		Input* inputComponent = gameObject->GetComponent<Input>();
-		RigidBody2D* rb = gameObject->GetComponent<RigidBody2D>();
+		Input* inputComponent = gameObject.Acquire()->GetComponent<Input>();
+		RigidBody2D* rb = gameObject.Acquire()->GetComponent<RigidBody2D>();
 		if (inputComponent)
 		{
 			if (inputComponent->GetAxis()->SquareLength() != 0)
@@ -35,10 +35,10 @@ void Controller::Update()
 	}
 	else if (controllerType == ControllerType::AI)
 	{
-		AIBehaviour* behaviour = gameObject->GetComponent<AIBehaviour>();
+		AIBehaviour* behaviour = gameObject.Acquire()->GetComponent<AIBehaviour>();
 		if (behaviour)
 		{
-			*gameObject->position = *gameObject->position + *behaviour->GetAIMovement();
+			*(gameObject.Acquire())->position = *(gameObject.Acquire())->position + *behaviour->GetAIMovement();
 		}
 		else
 		{

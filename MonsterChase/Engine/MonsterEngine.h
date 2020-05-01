@@ -1,6 +1,7 @@
 //This is the interface connecting the D3DRenderer WinApp to the Engine
 #pragma once
 #include "WinApp.h"
+#include "Pointers.h"
 
 class MonsterEngine : public WinApp
 {
@@ -16,6 +17,6 @@ private:
 
 private:
 	Camera camera;
-	//std::vector<Sprite*> sprites;
+	std::vector<SmartPtr<class Drawable>> drawables;
 };
 

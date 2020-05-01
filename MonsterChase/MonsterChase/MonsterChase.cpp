@@ -1,12 +1,11 @@
 //Engine Headers
-#include "MainGameLoopVariables.h"
+#include "World.h"
 #include "MonsterEngine.h"
 #include "Sprite.h"
 
 
 //STL Headers
 #include <assert.h>
-
 
 int CALLBACK WinMain(
 	HINSTANCE,
@@ -15,10 +14,12 @@ int CALLBACK WinMain(
 	int 
 )
 {
-
 	////Add all gameplay elements
-	Sprite* sprite;
-	sprite = new Sprite(L"Images\\2ab.png", 0.0f, 0.0f);
+	World::AddGameObject(SmartPtr<Sprite>(new Sprite(L"Images\\2ab.png", 0.0f, 0.0f)));
+
+	//Initialize all gameplay elements
+	World::InitializeGameObjects();
+
 	//Run the app
 	return MonsterEngine(800, 600, "MEngine").Run();
 }

@@ -1,31 +1,30 @@
 #include "SpriteRenderer.h"
-#include "Sheet.h"
 #include "GameObject.h"
-#include "MainGameLoopVariables.h"
+#include"World.h"
 
-SpriteRenderer::SpriteRenderer(GameObject * root, std::wstring i_fileName)
+SpriteRenderer::SpriteRenderer(SmartPtr<GameObject>root, std::wstring i_fileName):
+	Component(root)
 {
-	gameObject = root;
 	fileName = i_fileName;
-	
 }
 
 void SpriteRenderer::Start()
 {
-	gDrawables->push_back(std::make_unique<Sheet>(
-		*pGfx,
-		fileName,
-		gameObject->position->x,
-		gameObject->position->y,
-		1.0f, 1.0f,
-		0.0f));
+	sheet = SmartPtr<Sheet>(
+			new Sheet(
+			*World::GetGraphics(),
+			fileName,
+			gameObject.Acquire()->position->x,
+			gameObject.Acquire()->position->y,
+			1.0f, 1.0f,
+			0.0f));
+	
+	World::GetDrawables()->push_back(sheet);
 
-	//Store reference to last element for modifications
-	sheet = dynamic_cast<Sheet*>((gDrawables->back()).get());
 }
 
 void SpriteRenderer::Update()
 {
 	//Change parameters in sheet according to transform
-	sheet->SetPosition(gameObject->position->x, gameObject->position->y);
+	//sheet->SetPosition(gameObject.Acquire()->position->x, gameObject.Acquire()->position->y);
 }

@@ -4,6 +4,7 @@
 class Sheet : public DrawableBase<Sheet>
 {
 public:
+	Sheet()=default;
 	Sheet(Graphics& gfx, std::wstring fileName, float x, float y,float xScale, float yScale, float dRoll);
 	void Update(float dt) override;
 	DirectX::XMMATRIX GetTransformXM() const override;

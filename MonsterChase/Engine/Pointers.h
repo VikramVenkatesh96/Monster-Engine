@@ -1,54 +1,94 @@
 #pragma once
-
+#include <cstddef>
 struct RefCount
 {
 	int smartPtr;
 	int weakPtr;
 	RefCount(int i_smartPtr, int i_weakPtr)
 		:smartPtr(i_smartPtr),
-		 weakPtr(i_weakPtr)
+		weakPtr(i_weakPtr)
 	{
 	}
 };
 
 template <class T>
+class WeakPtr;
+
+template <class T>
 class SmartPtr
 {
+	friend WeakPtr<T>;
+
+	template <class U>
+	friend class SmartPtr;
 public:
-	explicit SmartPtr(T* i_object):
-		object(i_object),
-		count(new RefCount(1,0))
-	{
-	}
-
-	explicit SmartPtr(WeakPtr& i_other):
-		object(i_other.object),
-		count(i_other.count)
-	{
-		*(count->smartPtr)++;
-	}
 	
-	SmartPtr(SmartPtr& i_other):
+	SmartPtr()
+	{}
+
+	explicit SmartPtr(T* i_object) :
+		object(i_object),
+		count((i_object) ? new RefCount(1, 0) : nullptr)
+	{
+	}
+
+	explicit SmartPtr(WeakPtr<T>& i_other) :
 		object(i_other.object),
 		count(i_other.count)
 	{
-		(*count->smartPtr)++;
+		(count->smartPtr)++;
 	}
 
-	SmartPtr& operator=(SmartPtr& i_other)
+	template<class U>
+	SmartPtr(const SmartPtr<U>& i_other) :
+		object(i_other.object),
+		count(i_other.count)
+	{
+		(count->smartPtr)++;
+	}
+
+	SmartPtr(const SmartPtr& i_other) :
+		object(i_other.object),
+		count(i_other.count)
+	{
+		(count->smartPtr)++;
+	}
+
+	SmartPtr& operator=(const SmartPtr& i_other)
 	{
 		if (this != &i_other)
 		{
 			Release();
 			object = i_other.object;
 			count = i_other.count;
-			(*count->smartPtr)++;
+			(count->smartPtr)++;
+		}
+
+		return *this;
+	}
+
+	template <class U>
+	SmartPtr<T> Cast(const SmartPtr<U>& i_other)
+	{
+		if (dynamic_cast<T*>(i_other.object))
+		{
+			return SmartPtr<T>(dynamic_cast<T*>(i_other.object));
+		}
+		else
+		{
+			return SmartPtr<T>(nullptr);
 		}
 	}
 	
-	void operator=(std::nullptr_t i_nullptr)
+	bool operator==(SmartPtr<T> i_other)
+	{
+		return (object == i_other.object);
+	}
+
+	SmartPtr& operator=(std::nullptr_t i_nullptr)
 	{
 		Release();
+		return *this;
 	}
 
 	T* operator->()
@@ -65,7 +105,7 @@ public:
 	{
 		return object != nullptr;
 	}
-	 
+
 	~SmartPtr()
 	{
 		Release();
@@ -74,9 +114,12 @@ public:
 private:
 	void Release()
 	{
-		if (--(*count->smartPtr) == 0)
+		if (count)
 		{
-			delete object;
+			if (--(count->smartPtr) == 0)
+			{
+				delete object;
+			}
 		}
 	}
 
@@ -85,22 +128,25 @@ private:
 	RefCount* count;
 };
 
+
 template <class T>
 class WeakPtr
 {
+	template <class T>
+	friend class SmartPtr;
 public:
-	WeakPtr(SmartPtr& i_other):
+	WeakPtr(SmartPtr<T>& i_other) :
 		object(i_other.object),
 		count(i_other.count)
 	{
-		*(count->weakPtr)++;
+		(count->weakPtr)++;
 	}
 
 	WeakPtr(WeakPtr& i_other) :
 		object(i_other.object),
 		count(i_other.count)
 	{
-		(*count->weakPtr)++;
+		(count->weakPtr)++;
 	}
 
 	WeakPtr& operator=(WeakPtr& i_other)
@@ -110,7 +156,7 @@ public:
 			Release();
 			object = i_other.object;
 			count = i_other.count;
-			(*count->weakPtr)++;
+			(count->weakPtr)++;
 		}
 	}
 	SmartPtr<T> Acquire()
@@ -136,9 +182,12 @@ public:
 private:
 	void Release()
 	{
-		if (--(*count->weakPtr) == 0)
+		if (count)
 		{
-			delete count;
+			if (--(count->weakPtr) == 0)
+			{
+				delete count;
+			}
 		}
 	}
 

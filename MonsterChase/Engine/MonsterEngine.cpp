@@ -2,22 +2,19 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "PhysicsSystem.h"
-#include "MainGameLoopVariables.h"
 #include "Sprite.h"
+#include "World.h"
 
-Keyboard* keyboard = nullptr;
-Graphics* pGfx = nullptr;
-std::vector<std::unique_ptr<Drawable>>* gDrawables = nullptr;
 
 MonsterEngine::MonsterEngine(unsigned int width, unsigned int height, std::string appName)
 	: WinApp(width, height, appName)
 {
 	//Set Graphics and drawables for renderer updates
-	pGfx = GetGfxPtr();
-	gDrawables = &drawables;
+	World::SetGraphics(GetGfxPtr());
+	World::SetDrawables(&drawables);
 
 	//Set Keyboard for IO
-	keyboard = GetKeyboard();
+	World::SetKeyBoard(GetKeyboard());
 
 	//Run Start Loop
 	StartLoop();
@@ -56,10 +53,10 @@ void MonsterEngine::UpdateFrame()
 
 void MonsterEngine::StartLoop()
 {
-	std::vector<GameObject*>* gameObjects = GameObject::GetGlobalGameObjectList();
+	std::vector<SmartPtr<GameObject>>* gameObjects = World::GetGameObjects();
 	for (unsigned int i = 0; i < gameObjects->size(); ++i)
 	{
-		GameObject* gameObject = gameObjects->at(i);
+		SmartPtr<GameObject> gameObject = gameObjects->at(i);
 		std::vector<Component*>* components = gameObject->GetAllComponents();
 		for (unsigned int j = 0; j < components->size(); ++j)
 		{
@@ -70,10 +67,10 @@ void MonsterEngine::StartLoop()
 
 void MonsterEngine::UpdateLoop()
 {
-	std::vector<GameObject*>* gameObjects = GameObject::GetGlobalGameObjectList();
+	std::vector<SmartPtr<GameObject>>* gameObjects = World::GetGameObjects();
 	for (unsigned int i = 0; i < gameObjects->size(); ++i)
 	{
-		GameObject* gameObject = gameObjects->at(i);
+		SmartPtr<GameObject> gameObject = gameObjects->at(i);
 		std::vector<Component*>* components = gameObject->GetAllComponents();
 		for (unsigned int j = 0; j < components->size(); ++j)
 		{

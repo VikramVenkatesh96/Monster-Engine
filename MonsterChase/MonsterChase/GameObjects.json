@@ -1,0 +1,40 @@
+{
+  "gameobjects": [
+    {
+      "type": "Sprite",
+      "params": {
+        "position": [ 0.0, 0.0 ],
+        "fileName": "Images\\2ab.png",
+        "components": [
+          {
+            "type": "Input",
+            "params": ""
+          },
+          {
+            "type": "Controller",
+            "params": {
+              "type": "Player",
+              "maxForce": 50.0
+            }
+          },
+          {
+            "type": "RigidBody2D",
+            "params": {
+              "mass": 10.0,
+              "gravityEnabled": true,
+              "dragEnabled": true
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "type": "Sprite",
+      "params": {
+        "position": [ 0.0, 0.0 ],
+        "fileName": "Images\\2ab.png"
+      }
+    }
+  ] 
+}

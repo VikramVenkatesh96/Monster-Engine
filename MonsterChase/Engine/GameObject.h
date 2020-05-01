@@ -1,6 +1,6 @@
 #pragma once
-#include "DataStructures.h"
 #include "Point2D.h"
+#include "Pointers.h"
 #include <vector>
 
 class Component;
@@ -8,9 +8,9 @@ class Component;
 class GameObject
 {
 public:
-	Point2D* position;
 	GameObject();
 	virtual ~GameObject();
+	virtual void Initialize();
 	void Translate(Point2D);
 
 	//Component Functions
@@ -24,12 +24,11 @@ public:
 	void RemoveComponent(unsigned int);
 	void RemoveAllComponents();
 	void Inspector();
-	//static void SetGlobalGameObjectList(List<GameObject>&);
-	static std::vector<GameObject*>* GetGlobalGameObjectList();
 
+public:
+	Point2D* position;
 private:
 	std::vector<Component*> components;
-	static std::vector<GameObject*> gameObjects;
 
 };
 
@@ -51,3 +50,4 @@ T* GameObject::GetComponent()
 	}
 	return nullptr;
 }
+

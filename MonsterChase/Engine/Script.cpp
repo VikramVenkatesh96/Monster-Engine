@@ -1,8 +1,9 @@
 #include "Script.h"
+#include "GameObject.h"
 
-Script::Script(GameObject* root)
+Script::Script(SmartPtr<GameObject> root):
+	Component(root)
 {
-	gameObject = root;
 }
 
 void Script::Start()
