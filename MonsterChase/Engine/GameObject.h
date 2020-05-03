@@ -15,12 +15,14 @@ public:
 
 	//Component Functions
 	template <class T>
-	void AddComponent(T*);
+	void AddComponent(SmartPtr<T>);
 
 	template <class T>
-	T* GetComponent();
+	SmartPtr<T> GetComponent();
 
-	std::vector<Component*>* GetAllComponents();
+	SmartPtr<Component> GetAtIndex(unsigned int index);
+
+	std::vector<SmartPtr<Component>>* GetAllComponents();
 	void RemoveComponent(unsigned int);
 	void RemoveAllComponents();
 	void Inspector();
@@ -28,26 +30,26 @@ public:
 public:
 	Point2D* position;
 private:
-	std::vector<Component*> components;
+	std::vector<SmartPtr<Component>> components;
 
 };
 
 template<class T>
-void GameObject::AddComponent(T* component)
+void GameObject::AddComponent(SmartPtr<T> component)
 {
 	components.push_back(component);
 }
 
 template<class T>
-T* GameObject::GetComponent()
+SmartPtr<T> GameObject::GetComponent()
 {
 	for (unsigned int i = 0; i < components.size(); ++i)
 	{
-		if (dynamic_cast<T*>(components.at(i)) != nullptr)
+		if (Pointers::Cast<T,Component>(components.at(i)))
 		{
-			return dynamic_cast<T*>(components.at(i));
+			return Pointers::Cast<T,Component>(components.at(i));
 		}
 	}
-	return nullptr;
+	return SmartPtr<T>(nullptr);
 }
 

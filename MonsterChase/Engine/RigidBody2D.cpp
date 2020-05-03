@@ -4,7 +4,7 @@
 #include "Point2D.h"
 
 
-RigidBody2D::RigidBody2D(SmartPtr<GameObject> root, float mass, bool enableGravity, bool enableDrag):
+RigidBody2D::RigidBody2D(GameObject& root, float mass, bool enableGravity, bool enableDrag):
 	Component(root),
 	mass(mass),
 	enableGravity(enableGravity),
@@ -51,7 +51,7 @@ Point2D * RigidBody2D::GetVelocity()
 
 Point2D * RigidBody2D::GetPosition()
 {
-	return gameObject.Acquire()->position;
+	return gameObject.position;
 }
 void RigidBody2D::Start()
 {

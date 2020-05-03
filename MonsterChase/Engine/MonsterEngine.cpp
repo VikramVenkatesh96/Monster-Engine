@@ -53,11 +53,11 @@ void MonsterEngine::UpdateFrame()
 
 void MonsterEngine::StartLoop()
 {
-	std::vector<SmartPtr<GameObject>>* gameObjects = World::GetGameObjects();
+	std::vector<SmartPtr<GameObject>>* gameObjects =&World::GetGameObjects();
 	for (unsigned int i = 0; i < gameObjects->size(); ++i)
 	{
 		SmartPtr<GameObject> gameObject = gameObjects->at(i);
-		std::vector<Component*>* components = gameObject->GetAllComponents();
+		std::vector<SmartPtr<Component>>* components = gameObject->GetAllComponents();
 		for (unsigned int j = 0; j < components->size(); ++j)
 		{
 			components->at(j)->Start();
@@ -67,11 +67,11 @@ void MonsterEngine::StartLoop()
 
 void MonsterEngine::UpdateLoop()
 {
-	std::vector<SmartPtr<GameObject>>* gameObjects = World::GetGameObjects();
+	std::vector<SmartPtr<GameObject>>* gameObjects = &World::GetGameObjects();
 	for (unsigned int i = 0; i < gameObjects->size(); ++i)
 	{
 		SmartPtr<GameObject> gameObject = gameObjects->at(i);
-		std::vector<Component*>* components = gameObject->GetAllComponents();
+		std::vector<SmartPtr<Component>>* components = gameObject->GetAllComponents();
 		for (unsigned int j = 0; j < components->size(); ++j)
 		{
 			components->at(j)->Update();

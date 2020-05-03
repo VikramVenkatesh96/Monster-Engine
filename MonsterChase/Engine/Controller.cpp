@@ -3,9 +3,8 @@
 #include "Input.h"
 #include "AIBehaviour.h"
 #include "RigidBody2D.h"
-#include <iostream>
 
-Controller::Controller(SmartPtr<GameObject> root,ControllerType type, float maxForce):
+Controller::Controller(GameObject& root,ControllerType type, float maxForce):
 	Component(root),
 	maxForceMultiplier(maxForce)
 {	
@@ -19,8 +18,8 @@ void Controller::Update()
 {
 	if (controllerType == ControllerType::Player)
 	{
-		Input* inputComponent = gameObject.Acquire()->GetComponent<Input>();
-		RigidBody2D* rb = gameObject.Acquire()->GetComponent<RigidBody2D>();
+		SmartPtr<Input> inputComponent = gameObject.GetComponent<Input>();
+		SmartPtr<RigidBody2D> rb = gameObject.GetComponent<RigidBody2D>();
 		if (inputComponent)
 		{
 			if (inputComponent->GetAxis()->SquareLength() != 0)
@@ -30,19 +29,19 @@ void Controller::Update()
 		}
 		else
 		{
-			std::cout << "No Input Component Available"<< std::endl;
+			//No input Component
 		}
 	}
 	else if (controllerType == ControllerType::AI)
 	{
-		AIBehaviour* behaviour = gameObject.Acquire()->GetComponent<AIBehaviour>();
+		SmartPtr<AIBehaviour> behaviour = gameObject.GetComponent<AIBehaviour>();
 		if (behaviour)
 		{
-			*(gameObject.Acquire())->position = *(gameObject.Acquire())->position + *behaviour->GetAIMovement();
+			*gameObject.position = *gameObject.position + *behaviour->GetAIMovement();
 		}
 		else
 		{
-			std::cout << "No AI behaviour component found"<< std::endl;
+			//No AI behaviour
 		}
 	}
 }

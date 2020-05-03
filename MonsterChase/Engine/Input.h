@@ -5,7 +5,7 @@
 class Input:public Component
 {
 public:
-	Input(SmartPtr<GameObject>);
+	Input(GameObject&);
 	~Input();
 	virtual void Start() override;
 	virtual void Update() override;

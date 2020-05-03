@@ -1,7 +1,7 @@
 #include "Component.h"
 #include "GameObject.h"
 #include <iostream>
-Component::Component(SmartPtr<GameObject> root):
+Component::Component(GameObject& root):
 	gameObject(root)
 {
 

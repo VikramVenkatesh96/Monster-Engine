@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include "Component.h"
 #include "RigidBody2D.h"
 #include "SpriteRenderer.h"
 #include "Input.h"
@@ -16,10 +17,10 @@ Sprite::Sprite(std::wstring fileName, float posX, float posY):
 
 void Sprite::Initialize()
 {
-	this->AddComponent(new Input(SmartPtr<GameObject>(this)));
-	this->AddComponent(new Controller(SmartPtr<GameObject>(this), ControllerType::Player, 50.0f));
-	this->AddComponent(new RigidBody2D(SmartPtr<GameObject>(this), 10.0f, true, true));
-	this->AddComponent(new SpriteRenderer(SmartPtr<GameObject>(this), fileName));
+	this->AddComponent(SmartPtr<Component>(new Input(*this)));
+	this->AddComponent(SmartPtr<Component>(new Controller(*this, ControllerType::Player, 50.0f)));
+	this->AddComponent(SmartPtr<Component>(new RigidBody2D(*this, 10.0f, true, true)));
+	this->AddComponent(SmartPtr<Component>(new SpriteRenderer(*this, fileName)));
 }
 
 Sprite::~Sprite()

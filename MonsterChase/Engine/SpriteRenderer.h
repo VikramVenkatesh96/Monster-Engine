@@ -1,12 +1,13 @@
 #pragma once
 #include "Component.h"
-#include "Sheet.h"
 #include <string>
+
+class Sheet;
 
 class SpriteRenderer : public Component
 {
 public:
-	SpriteRenderer(SmartPtr<GameObject>, std::wstring fileName);
+	SpriteRenderer(GameObject&, std::wstring fileName);
 	virtual void Start() override;
 	virtual void Update() override;
 

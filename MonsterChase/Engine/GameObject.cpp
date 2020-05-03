@@ -10,7 +10,6 @@ GameObject::GameObject()
 GameObject::~GameObject()
 {
 	delete position;
-	RemoveAllComponents();
 }
 
 void GameObject::Initialize()
@@ -22,7 +21,12 @@ void GameObject::Translate(Point2D toPosition) {
 	*this->position = toPosition;
 }
 
-std::vector<Component*>* GameObject::GetAllComponents()
+SmartPtr<Component> GameObject::GetAtIndex(unsigned int index)
+{
+	return components.at(index);
+}
+
+std::vector<SmartPtr<Component>>* GameObject::GetAllComponents()
 {
 	return &components;
 }
@@ -36,7 +40,7 @@ void GameObject::RemoveAllComponents()
 {
 	for (unsigned int i = 0; i < components.size(); ++i)
 	{
-		delete components[i];
+		components.erase(components.begin() + i);
 	}
 	components.clear();
 }

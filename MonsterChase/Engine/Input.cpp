@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Keyboard.h"
 #include "World.h"
-Input::Input(SmartPtr<GameObject> root):
+Input::Input(GameObject& root):
 	Component(root)
 {
 	inputAxis = new Point2D();

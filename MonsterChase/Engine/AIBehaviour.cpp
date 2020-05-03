@@ -3,7 +3,7 @@
 #include "GamePlayStatics.h"
 #include <cmath>
 
-AIBehaviour::AIBehaviour(SmartPtr<GameObject> root,Behaviour type):
+AIBehaviour::AIBehaviour(GameObject& root,Behaviour type):
 	Component(root)
 {
 	behaviourType = type;

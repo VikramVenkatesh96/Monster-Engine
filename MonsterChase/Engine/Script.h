@@ -5,7 +5,7 @@
 class Script :public Component
 {
 public:
-	Script(SmartPtr<GameObject>);
+	Script(GameObject&);
 	//(OLD)
 	//Script(GameObject*, std::function<void()>, std::function<void()>);
 protected:

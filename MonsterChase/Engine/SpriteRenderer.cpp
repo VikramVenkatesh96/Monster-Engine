@@ -1,8 +1,10 @@
 #include "SpriteRenderer.h"
 #include "GameObject.h"
+#include "Sheet.h"
 #include"World.h"
 
-SpriteRenderer::SpriteRenderer(SmartPtr<GameObject>root, std::wstring i_fileName):
+
+SpriteRenderer::SpriteRenderer(GameObject& root, std::wstring i_fileName):
 	Component(root)
 {
 	fileName = i_fileName;
@@ -14,8 +16,8 @@ void SpriteRenderer::Start()
 			new Sheet(
 			*World::GetGraphics(),
 			fileName,
-			gameObject.Acquire()->position->x,
-			gameObject.Acquire()->position->y,
+			gameObject.position->x,
+			gameObject.position->y,
 			1.0f, 1.0f,
 			0.0f));
 	
@@ -26,5 +28,5 @@ void SpriteRenderer::Start()
 void SpriteRenderer::Update()
 {
 	//Change parameters in sheet according to transform
-	//sheet->SetPosition(gameObject.Acquire()->position->x, gameObject.Acquire()->position->y);
+	sheet->SetPosition(gameObject.position->x, gameObject.position->y);
 }

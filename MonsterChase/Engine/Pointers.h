@@ -22,9 +22,10 @@ class SmartPtr
 	template <class U>
 	friend class SmartPtr;
 public:
-	
+
 	SmartPtr()
-	{}
+	{
+	}
 
 	explicit SmartPtr(T* i_object) :
 		object(i_object),
@@ -36,7 +37,10 @@ public:
 		object(i_other.object),
 		count(i_other.count)
 	{
-		(count->smartPtr)++;
+		if (count)
+		{
+			(count->smartPtr)++;
+		}
 	}
 
 	template<class U>
@@ -44,14 +48,31 @@ public:
 		object(i_other.object),
 		count(i_other.count)
 	{
-		(count->smartPtr)++;
+		if (count)
+		{
+			(count->smartPtr)++;
+		}
+	}
+
+	template<class U>
+	SmartPtr(const SmartPtr<U>& i_other, T* i_ptr)
+	{
+		if (i_other.count)
+		{
+			(i_other.count->smartPtr)++;
+		}
+		object = i_ptr;
+		count = i_other.count;
 	}
 
 	SmartPtr(const SmartPtr& i_other) :
 		object(i_other.object),
 		count(i_other.count)
 	{
-		(count->smartPtr)++;
+		if (count)
+		{
+			(count->smartPtr)++;
+		}
 	}
 
 	SmartPtr& operator=(const SmartPtr& i_other)
@@ -61,25 +82,14 @@ public:
 			Release();
 			object = i_other.object;
 			count = i_other.count;
-			(count->smartPtr)++;
+			if (count)
+			{
+				(count->smartPtr)++;
+			}
 		}
-
 		return *this;
 	}
 
-	template <class U>
-	SmartPtr<T> Cast(const SmartPtr<U>& i_other)
-	{
-		if (dynamic_cast<T*>(i_other.object))
-		{
-			return SmartPtr<T>(dynamic_cast<T*>(i_other.object));
-		}
-		else
-		{
-			return SmartPtr<T>(nullptr);
-		}
-	}
-	
 	bool operator==(SmartPtr<T> i_other)
 	{
 		return (object == i_other.object);
@@ -100,7 +110,12 @@ public:
 	{
 		return *(object);
 	}
-
+	
+	T* Get() const
+	{
+		return object;
+	}
+	
 	operator bool()
 	{
 		return object != nullptr;
@@ -139,14 +154,20 @@ public:
 		object(i_other.object),
 		count(i_other.count)
 	{
-		(count->weakPtr)++;
+		if (count)
+		{
+			(count->weakPtr)++;
+		}
 	}
 
 	WeakPtr(WeakPtr& i_other) :
 		object(i_other.object),
 		count(i_other.count)
 	{
-		(count->weakPtr)++;
+		if (count)
+		{
+			(count->weakPtr)++;
+		}
 	}
 
 	WeakPtr& operator=(WeakPtr& i_other)
@@ -156,7 +177,10 @@ public:
 			Release();
 			object = i_other.object;
 			count = i_other.count;
-			(count->weakPtr)++;
+			if (count)
+			{
+				(count->weakPtr)++;
+			}
 		}
 	}
 	SmartPtr<T> Acquire()
@@ -195,3 +219,18 @@ private:
 	T* object;
 	RefCount* count;
 };
+
+namespace Pointers
+{
+	template <class T, class U>
+	SmartPtr<T> Cast(const SmartPtr<U>& i_original)
+	{
+		if (auto x = dynamic_cast<T*>(i_original.Get()))
+		{
+			SmartPtr<T> obj(i_original, x);
+			return obj;
+		}
+
+		return SmartPtr<T>(nullptr);
+	}
+}

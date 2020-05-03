@@ -26,17 +26,17 @@ public:
 		gDrawables = i_drawables;
 	}
 	static std::vector<SmartPtr<Drawable>>* GetDrawables();
-	static std::vector<SmartPtr<GameObject>>* GetGameObjects();
+	static std::vector<SmartPtr<GameObject>>& GetGameObjects();
 	static void* GetHeapStart();
 
 	static inline void AddGameObject(SmartPtr<GameObject> object)
 	{
-		gameObjects->push_back(object);
+		gameObjects.push_back(object);
 	}
 
 	static inline void RemoveGameObject(SmartPtr<GameObject> object)
 	{
-		gameObjects->erase(std::remove(gameObjects->begin(), gameObjects->end(), object), gameObjects->end());
+		gameObjects.erase(std::remove(gameObjects.begin(), gameObjects.end(), object), gameObjects.end());
 	}
 
 	static void InitializeGameObjects();
@@ -52,7 +52,7 @@ private:
 #pragma endregion
 
 #pragma region EngineRefs
-	static std::vector<SmartPtr<GameObject>>* gameObjects;
+	static std::vector<SmartPtr<GameObject>> gameObjects;
 #pragma endregion
 
 #pragma region MemoryManager variables

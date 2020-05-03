@@ -6,7 +6,7 @@ enum Behaviour {FollowPlayer, RandomMotion};
 class AIBehaviour: public Component
 {
 public:
-	AIBehaviour(SmartPtr<GameObject>,Behaviour);
+	AIBehaviour(GameObject&,Behaviour);
 	virtual void Start();
 	virtual void Update();
 	Point2D* GetAIMovement();
