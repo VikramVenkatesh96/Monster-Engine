@@ -1,4 +1,5 @@
 #pragma once
+#include "HashedString.h"
 #include "Point2D.h"
 #include "Pointers.h"
 #include <vector>

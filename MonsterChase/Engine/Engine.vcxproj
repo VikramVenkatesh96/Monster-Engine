@@ -27,6 +27,7 @@
     <ClInclude Include="FloatHelpers.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GamePlayStatics.h" />
+    <ClInclude Include="HashedString.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="IO.h" />
     <ClInclude Include="Loader.h" />
@@ -87,6 +88,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="FloatHelpers.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HashedString.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="IO.cpp" />
     <ClCompile Include="Loader.cpp" />
@@ -170,7 +172,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>$(SolutionDir)D3DRenderer</AdditionalIncludeDirectories>
@@ -189,7 +191,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>$(SolutionDir)D3DRenderer</AdditionalIncludeDirectories>
@@ -210,7 +212,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>$(SolutionDir)D3DRenderer</AdditionalIncludeDirectories>
@@ -233,7 +235,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile />
       <AdditionalIncludeDirectories>$(SolutionDir)D3DRenderer</AdditionalIncludeDirectories>

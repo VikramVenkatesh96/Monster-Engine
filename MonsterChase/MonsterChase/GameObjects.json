@@ -2,9 +2,9 @@
   "gameobjects": [
     {
       "type": "Sprite",
+      "name": "Player",
       "params": {
         "position": [ 0.0, 0.0 ],
-        "fileName": "Images\\2ab.png",
         "components": [
           {
             "type": "Input",
@@ -24,6 +24,12 @@
               "gravityEnabled": true,
               "dragEnabled": true
             }
+          },
+          {
+            "type": "SpriteRenderer",
+            "params": {
+              "fileName": "Images\\2ab.png"
+            }
           }
         ]
       }
@@ -31,9 +37,17 @@
 
     {
       "type": "Sprite",
+      "name": "Enemy",
       "params": {
-        "position": [ 0.0, 0.0 ],
-        "fileName": "Images\\2ab.png"
+        "position": [ -2.0, 0.0 ],
+        "components": [
+          {
+            "type": "SpriteRenderer",
+            "params": {
+              "fileName": "Images\\Gladiator.png"
+            }
+          }
+        ]
       }
     }
   ] 

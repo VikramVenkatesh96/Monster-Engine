@@ -1,7 +1,6 @@
 //Engine Headers
-#include "World.h"
+#include "Loader.h"
 #include "MonsterEngine.h"
-#include "Sprite.h"
 
 
 //STL Headers
@@ -15,10 +14,10 @@ int CALLBACK WinMain(
 )
 {
 	////Add all gameplay elements
-	World::AddGameObject(SmartPtr<Sprite>(new Sprite(L"Images\\2ab.png", 0.0f, 0.0f)));
+	Loader::CreateObjectsFromFile("GameObjects.json");
 
 	//Initialize all gameplay elements
-	World::InitializeGameObjects();
+	Loader::InitializeObjectsFromFile();
 
 	//Run the app
 	return MonsterEngine(800, 600, "MEngine").Run();
